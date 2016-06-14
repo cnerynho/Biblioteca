@@ -4,27 +4,15 @@ import java.util.ArrayList;
 
 public class Autor {
 
-	private int 				ID;
-	private String 				nome;
-	private ArrayList<Livro>	livros;
+	private int ID;
+	private String nome;
+	private ArrayList<Livro> livros;
 
 	// Usar este quando consultar um autor ja existente
 	public Autor(int iD, String nome, ArrayList<Livro> livros) {
 		ID = iD;
 		this.nome = nome;
 		this.livros = livros;
-	}
-
-	// Usar este para criar um novo autor
-	public Autor(String nome) {
-		ID = getNewID();
-		this.nome = nome;
-		this.livros = new ArrayList<Livro>();
-	}
-
-	private int getNewID() {
-		// Criar um gerador de ID para autores Novos
-		return 0;
 	}
 
 	public int getID() {
@@ -43,7 +31,7 @@ public class Autor {
 		this.nome = nome;
 	}
 
-	//consultar livro do autor pelo ID
+	// consultar livro do autor pelo ID
 	public Livro getLivro(int IDdoLivro) throws Exception {
 
 		for (int i = 0; i < livros.size(); i++) {
@@ -54,7 +42,8 @@ public class Autor {
 
 		throw new Exception("Livro não encontrado!");
 	}
-	//consultar todos os livros do autor de acordo com a classificação
+
+	// consultar todos os livros do autor de acordo com a classificação
 	public ArrayList<Livro> getLivrosClassificacao(String classificacao) throws Exception {
 
 		ArrayList<Livro> livros = new ArrayList<Livro>();
@@ -71,8 +60,9 @@ public class Autor {
 		return livros;
 
 	}
-	
-	//consultar livro do autor de acordo com o nome. PENSAR NO CASO DE EXISTIR VARIOS LIVROS COM MESMO NOME
+
+	// consultar livro do autor de acordo com o nome. PENSAR NO CASO DE EXISTIR
+	// VARIOS LIVROS COM MESMO NOME
 	public Livro getLivroNome(String nome) throws Exception {
 
 		for (int i = 0; i < livros.size(); i++) {
@@ -85,7 +75,8 @@ public class Autor {
 
 	}
 
-	//adicionar livro ao AUtor. CASO DA CRIACAO DE UM LIVRO NOVO!LEBRAR DE PENSAR COMO ISTO FICARÁ NO BD
+	// adicionar livro ao AUtor. CASO DA CRIACAO DE UM LIVRO NOVO!LEBRAR DE
+	// PENSAR COMO ISTO FICARÁ NO BD
 	public void addLivro(Livro novoLivro) {
 		this.livros.add(novoLivro);
 	}
