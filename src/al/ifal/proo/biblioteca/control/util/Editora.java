@@ -1,4 +1,4 @@
-package al.ifal.proo.biblioteca.model.util;
+package al.ifal.proo.biblioteca.control.util;
 
 public class Editora {
 

@@ -1,30 +1,30 @@
 package al.ifal.proo.biblioteca.control;
 
-import al.ifal.proo.biblioteca.model.user.Usuario;
+import al.ifal.proo.biblioteca.control.util.Usuario;
 
 public class Controlador {
 	
-	public boolean AutenticarLoggin(String usuario, String senha){
-		if(usuario.equals("")&&senha.equals("")){
-			Main.USER = new Usuario(0, usuario, senha, 1);
-			Main.isLogged = true;
-			return true;
-		} else{
-			return false;
-		}
+	public static boolean isLogged = false;
+	public static boolean isExit = false;
+	public static Usuario USER;
+
+	public boolean AutenticarLoggin(Usuario usuario) {
+		
+		
+		return false;
 	}
 
 	public boolean getIsLogged() {
-		return Main.isLogged;
+		return isLogged;
 	}
 
 	public void Exit() {
-		Main.isExit = true;
-		
+		isExit = true;
+
 	}
 
 	public void LogOut() {
-		Main.isLogged = false;
-		
+		isLogged = false;
+
 	}
 }
