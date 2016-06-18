@@ -14,7 +14,6 @@ class Main {
 
 		View view = new View();
 		view.telaInicial();
-
 		do {
 			
 			while (!isLogged) {

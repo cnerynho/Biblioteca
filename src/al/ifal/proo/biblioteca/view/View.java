@@ -15,7 +15,7 @@ public class View {
 
 	public void telaLogin() {
 
-		TelaLogin tela = new TelaLogin();
+		Tela tela = new TelaLogin();
 		tela.gerarTela();
 	}
 
