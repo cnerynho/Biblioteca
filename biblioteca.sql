@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 13-Jun-2016 às 16:01
--- Versão do servidor: 5.6.24
--- PHP Version: 5.6.8
+-- Generation Time: 19-Jun-2016 às 19:44
+-- Versão do servidor: 10.1.13-MariaDB
+-- PHP Version: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `biblioteca`
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `emprestimos`
 --
 
-CREATE TABLE IF NOT EXISTS `emprestimos` (
+CREATE TABLE `emprestimos` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `data_inicio` date NOT NULL,
@@ -36,17 +36,40 @@ CREATE TABLE IF NOT EXISTS `emprestimos` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `itens`
+--
+
+CREATE TABLE `itens` (
+  `ID` int(11) NOT NULL,
+  `Nome` varchar(50) NOT NULL,
+  `id_Setor` int(10) NOT NULL,
+  `Disponivel` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `livros`
 --
 
-CREATE TABLE IF NOT EXISTS `livros` (
+CREATE TABLE `livros` (
   `id` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL,
   `editora` varchar(100) NOT NULL,
-  `setor_id` int(11) NOT NULL,
-  `ano` int(11) NOT NULL,
+  `edicao` int(11) NOT NULL,
   `genero` varchar(50) NOT NULL,
   `autor` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `revistas`
+--
+
+CREATE TABLE `revistas` (
+  `ID` int(11) NOT NULL,
+  `ano` int(11) NOT NULL,
+  `numero` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -55,9 +78,25 @@ CREATE TABLE IF NOT EXISTS `livros` (
 -- Estrutura da tabela `setores`
 --
 
-CREATE TABLE IF NOT EXISTS `setores` (
+CREATE TABLE `setores` (
   `id` int(11) NOT NULL,
-  `localizacao` varchar(100) NOT NULL
+  `localizacao` varchar(100) NOT NULL,
+  `descricao` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tcc`
+--
+
+CREATE TABLE `tcc` (
+  `ID` int(11) NOT NULL,
+  `autor` varchar(50) NOT NULL,
+  `instituto` varchar(50) NOT NULL,
+  `curso` varchar(50) NOT NULL,
+  `orientador` varchar(50) NOT NULL,
+  `campoDeEstudo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -66,12 +105,12 @@ CREATE TABLE IF NOT EXISTS `setores` (
 -- Estrutura da tabela `usuarios`
 --
 
-CREATE TABLE IF NOT EXISTS `usuarios` (
+CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `cpf` varchar(20) NOT NULL,
-  `endereco` varchar(200) NOT NULL,
+  `cpf` int(11) NOT NULL,
   `senha` varchar(100) NOT NULL,
+  `Endereco` varchar(200) NOT NULL,
   `tipo_usuario` varchar(50) NOT NULL,
   `tipo_cliente` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -87,10 +126,25 @@ ALTER TABLE `emprestimos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `itens`
+--
+ALTER TABLE `itens`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `ID` (`ID`),
+  ADD KEY `id_Setor` (`id_Setor`),
+  ADD KEY `id_Setor_2` (`id_Setor`);
+
+--
 -- Indexes for table `livros`
 --
 ALTER TABLE `livros`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `revistas`
+--
+ALTER TABLE `revistas`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `setores`
@@ -99,10 +153,17 @@ ALTER TABLE `setores`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tcc`
+--
+ALTER TABLE `tcc`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cpf` (`cpf`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -114,10 +175,10 @@ ALTER TABLE `usuarios`
 ALTER TABLE `emprestimos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `livros`
+-- AUTO_INCREMENT for table `itens`
 --
-ALTER TABLE `livros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `itens`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `setores`
 --

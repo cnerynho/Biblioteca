@@ -5,11 +5,11 @@ public abstract class Usuario {
 	private int ID;
 	private String nome;
 	private int cpf;
-	private Endereco endereco;
+	private String endereco;
 	private String tipoUsuario;
 	private String tipoCliente;
 
-	public Usuario(int iD, String nome, int cpf, Endereco endereco, String tipoUsuario,
+	public Usuario(int iD, String nome, int cpf, String endereco, String tipoUsuario,
 			String tipoCliente) {
 		ID = iD;
 		this.nome = nome;
@@ -43,11 +43,11 @@ public abstract class Usuario {
 		this.cpf = cpf;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 

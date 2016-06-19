@@ -4,7 +4,7 @@ public class Cliente extends Usuario implements IUser {
 	
 	private String senha;
 
-	public Cliente(int iD, String nome, int cpf, Endereco endereco, String senha) {
+	public Cliente(int iD, String nome, int cpf, String endereco, String senha) {
 		super(iD, nome, cpf, endereco, "CLIENTE", "SIMPLES");
 		this.senha = senha;
 	}

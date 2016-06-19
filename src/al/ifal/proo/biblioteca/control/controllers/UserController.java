@@ -14,7 +14,7 @@ public class UserController {
 
 	public Cliente consultarCpfUsuario(int cpf) throws ControllerException {
 
-		return new Cliente(00, FUNCIONARIO, 0, null, GERENTE);
+		return new Cliente(00, FUNCIONARIO, 0, "", GERENTE);
 
 	}
 

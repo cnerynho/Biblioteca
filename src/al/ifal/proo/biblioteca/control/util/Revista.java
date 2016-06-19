@@ -1,11 +1,11 @@
 package al.ifal.proo.biblioteca.control.util;
 
-public class Resvista extends Item {
+public class Revista extends Item {
 
 	private int ano;
 	private int numero;
 	
-	public Resvista(int iD, String nome, Setor setor, boolean isDisponivel, int ano, int numero) {
+	public Revista(int iD, String nome, Setor setor, boolean isDisponivel, int ano, int numero) {
 		super(iD, nome, setor, isDisponivel);
 		this.ano = ano;
 		this.numero = numero;
