@@ -1,12 +1,11 @@
 package al.ifal.proo.biblioteca.control.util;
 
-public abstract class Usuario implements IUser {
+public abstract class Usuario {
 
 	private int ID;
 	private String nome;
 	private int cpf;
 	private Endereco endereco;
-	private String senha;
 	private String tipoUsuario;
 	private String tipoCliente;
 
@@ -16,7 +15,6 @@ public abstract class Usuario implements IUser {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.endereco = endereco;
-		this.senha = senha;
 		this.tipoUsuario = tipoUsuario;
 		this.tipoCliente = tipoCliente;
 	}
@@ -51,14 +49,6 @@ public abstract class Usuario implements IUser {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 	public String getTipoUsuario() {
