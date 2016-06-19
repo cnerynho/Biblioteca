@@ -9,7 +9,7 @@ public abstract class Usuario {
 	private String tipoUsuario;
 	private String tipoCliente;
 
-	public Usuario(int iD, String nome, int cpf, Endereco endereco, String senha, String tipoUsuario,
+	public Usuario(int iD, String nome, int cpf, Endereco endereco, String tipoUsuario,
 			String tipoCliente) {
 		ID = iD;
 		this.nome = nome;

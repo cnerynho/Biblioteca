@@ -5,7 +5,8 @@ public class Funcionario extends Usuario implements IUser {
 	private String senha;
 
 	public Funcionario(int iD, String nome, int cpf, Endereco endereco, String senha) {
-		super(iD, nome, cpf, endereco, senha, "FUNCIONARIO", "AVANCADO");
+		super(iD, nome, cpf, endereco, "FUNCIONARIO", "AVANCADO");
+		this.senha = senha;
 	}
 
 	public String getSenha() {

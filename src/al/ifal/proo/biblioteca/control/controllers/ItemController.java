@@ -13,4 +13,8 @@ public class ItemController {
 	public void cadastrarTCC() {
 
 	}
+
+	public void cadastrarSetor() {
+
+	}
 }
