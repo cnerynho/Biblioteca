@@ -60,7 +60,7 @@ public class UserController {
 
 		}
 		if (user != null) {
-			throw new ControllerException("Este CPF está Cadastrado Para outro usuario");
+			throw new ControllerException("Este CPF estï¿½ Cadastrado Para outro usuario");
 		}
 		
 		if (cpf.length() != 11) {

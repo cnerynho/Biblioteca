@@ -14,7 +14,7 @@ public class UtilController {
 	public void cadastrarSetor(String localizacao, String descricao) throws ControllerException {
 
 		if (localizacao.equals("")) {
-			throw new ControllerException("Faltou Digitar a localização!");
+			throw new ControllerException("Faltou Digitar a localizaï¿½ï¿½o!");
 		}
 
 		IConexao banco = new ConexaoMySQL();
