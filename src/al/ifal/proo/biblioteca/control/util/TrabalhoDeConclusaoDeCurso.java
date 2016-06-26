@@ -2,30 +2,20 @@ package al.ifal.proo.biblioteca.control.util;
 
 public class TrabalhoDeConclusaoDeCurso extends Item {
 
-	private int ano;
 	private String autor;
 	private String institutoSuperior;
 	private String curso;
 	private String orientador;
-	private String campoDeEstudos;
+	private String campoDeEstudo;
 
 	public TrabalhoDeConclusaoDeCurso(int iD, String nome, Setor setor, boolean isDisponivel, int ano, String autor,
-			String institutoSuperior, String curso, String orientador, String areaDeInteresse) {
+			String institutoSuperior, String curso, String orientador, String campoDeEstudo) {
 		super(iD, nome, setor, isDisponivel);
-		this.ano = ano;
 		this.autor = autor;
 		this.institutoSuperior = institutoSuperior;
 		this.curso = curso;
 		this.orientador = orientador;
-		this.campoDeEstudos = areaDeInteresse;
-	}
-
-	public int getAno() {
-		return ano;
-	}
-
-	public void setAno(int ano) {
-		this.ano = ano;
+		this.campoDeEstudo = campoDeEstudo;
 	}
 
 	public String getAutor() {
@@ -61,11 +51,11 @@ public class TrabalhoDeConclusaoDeCurso extends Item {
 	}
 
 	public String getAreaDeInteresse() {
-		return campoDeEstudos;
+		return campoDeEstudo;
 	}
 
 	public void setAreaDeInteresse(String areaDeInteresse) {
-		this.campoDeEstudos = areaDeInteresse;
+		this.campoDeEstudo = areaDeInteresse;
 	}
 
 }
