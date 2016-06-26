@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import al.ifal.proo.biblioteca.control.dataBase.ConexaoMySQL;
-import al.ifal.proo.biblioteca.control.dataBase.IConexao;
 import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
+import al.ifal.proo.biblioteca.model.conexao.ConexaoMySQL;
+import al.ifal.proo.biblioteca.model.conexao.IConexao;
 
 public class UtilController {
 

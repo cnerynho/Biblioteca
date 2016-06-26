@@ -6,11 +6,11 @@ public abstract class Usuario {
 	private String nome;
 	private String cpf;
 	private String endereco;
-	private String tipoUsuario;
-	private String tipoCliente;
+	private int tipoUsuario;
+	private int tipoCliente;
 
-	public Usuario(int iD, String nome, String cpf, String endereco, String tipoUsuario,
-			String tipoCliente) {
+	public Usuario(int iD, String nome, String cpf, String endereco, int tipoUsuario,
+			int tipoCliente) {
 		ID = iD;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -51,19 +51,19 @@ public abstract class Usuario {
 		this.endereco = endereco;
 	}
 
-	public String getTipoUsuario() {
+	public int getTipoUsuario() {
 		return tipoUsuario;
 	}
 
-	public void setTipoUsuario(String tipoUsuario) {
+	public void setTipoUsuario(int tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public String getTipoCliente() {
+	public int getTipoCliente() {
 		return tipoCliente;
 	}
 
-	public void setTipoCliente(String tipoCliente) {
+	public void setTipoCliente(int tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
 

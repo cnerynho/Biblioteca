@@ -1,19 +1,24 @@
 package al.ifal.proo.biblioteca.control;
 
-import al.ifal.proo.biblioteca.control.controllers.UtilController;
-import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
+import java.sql.ResultSet;
+
+import al.ifal.proo.biblioteca.model.conexao.ConsultarUsuarios;
 
 class Main {
 
 	
 	public static void main(String[] args) {
 
-		UtilController controlador = new UtilController();
+		ConsultarUsuarios a = new ConsultarUsuarios();
+		ResultSet rs ;
 		try {
-			controlador.cadastrarSetor("carlos", "09581844457");
-		} catch (ControllerException e) {
-			System.out.println(e.getMessage());
-		}	
+			rs = a.consultaCPF("09581844457");
+			//rs.next();
+			System.out.println(rs.next());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 

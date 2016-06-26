@@ -1,4 +1,4 @@
-package al.ifal.proo.biblioteca.control.dataBase;
+package al.ifal.proo.biblioteca.model.conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

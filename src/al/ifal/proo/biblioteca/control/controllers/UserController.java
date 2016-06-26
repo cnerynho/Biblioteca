@@ -1,52 +1,53 @@
 package al.ifal.proo.biblioteca.control.controllers;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import al.ifal.proo.biblioteca.control.dataBase.ConexaoMySQL;
-import al.ifal.proo.biblioteca.control.dataBase.IConexao;
 import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
 import al.ifal.proo.biblioteca.control.util.Cliente;
 import al.ifal.proo.biblioteca.control.util.Funcionario;
 import al.ifal.proo.biblioteca.control.util.Gerente;
 import al.ifal.proo.biblioteca.control.util.Usuario;
+import al.ifal.proo.biblioteca.model.conexao.CadastrarUsuarios;
+import al.ifal.proo.biblioteca.model.conexao.ConsultarUsuarios;
 
 public class UserController {
 
-	public static final String CLIENTE = "CLIENTE";
-	public static final String NVCLIENTE = "SIMPLES";
-	public static final String FUNCIONARIO = "CLIENTE";
-	public static final String NVFUNCIONARIO = "AVANCADO";
-	public static final String GERENTE = "CLIENTE";
-	public static final String NVGERENTE = "ADMINISTRADOR";
+	public static final int CLIENTE = 1;
+	public static final int NVCLIENTE = 1;
+	public static final int FUNCIONARIO = 2;
+	public static final int NVFUNCIONARIO = 2;
+	public static final int GERENTE = 3;
+	public static final int NVGERENTE = 3;
 
 	public Usuario consultarUsuarioPeloCPF(String cpf) throws ControllerException {
 
-		IConexao banco = new ConexaoMySQL();
-		Connection conexao = banco.getConexao();
-		ResultSet rs;
-		Statement stmt;
+		ConsultarUsuarios consulta = new ConsultarUsuarios();
+		ResultSet rs = consulta.consultaCPF(cpf);
+		
 		try {
-			stmt = conexao.createStatement();
+			if(!rs.next()){
+				throw new ControllerException("Consulta vazia");
+			}
 		} catch (SQLException e) {
-			throw new ControllerException("Erro ao criar o Statement!");
+			throw new ControllerException("Erro ao fazer a Consulta");
+		}catch (ControllerException e) {
+			throw e;
 		}
 		try {
-			rs = stmt.executeQuery("SELECT * FROM usuarios WHERE cpf=" + cpf + "");
-			rs.next();
-			if (rs.getString(6).equals(CLIENTE)) {
+
+			switch (rs.getInt(6)) {
+			case CLIENTE:
 				return new Cliente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4));
-			} else if (rs.getString(6).equals(FUNCIONARIO)) {
+			case FUNCIONARIO:
 				return new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5),
 						rs.getString(4));
-			} else if (rs.getString(6).equals(GERENTE)) {
+			case GERENTE:
 				return new Gerente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4));
-			}
-			throw new ControllerException("Erro ao fazer a consulta!");
 
-		} catch (SQLException e) {
+			}
+			throw new Exception();
+		} catch (Exception e) {
 			throw new ControllerException("Erro ao fazer a consulta!");
 		}
 
@@ -60,9 +61,9 @@ public class UserController {
 
 		}
 		if (user != null) {
-			throw new ControllerException("Este CPF est� Cadastrado Para outro usuario");
+			throw new ControllerException("Este CPF esta Cadastrado Para outro usuario");
 		}
-		
+
 		if (cpf.length() != 11) {
 			throw new ControllerException("CPF com quantidade errada de caracteres!");
 		}
@@ -91,28 +92,14 @@ public class UserController {
 		if (nome.equals("")) {
 			throw new ControllerException("Faltou Digitar um nome!");
 		}
-
-		IConexao banco = new ConexaoMySQL();
-		Connection conexao = banco.getConexao();
-		Statement stmt;
-
-		try {
-			stmt = conexao.createStatement();
-		} catch (SQLException e) {
-			throw new ControllerException("Erro ao criar o Statement!");
-		}
-
-		try {
-			stmt.executeUpdate("insert into usuarios(nome, cpf, senha, Endereco, tipo_usuario, tipo_cliente)"
-					+ "values('" + nome + "','" + cpf + "','" + senha + "','" + endereco + "','" + CLIENTE + "','"
-					+ NVCLIENTE + "')");
-		} catch (SQLException e) {
-			throw new ControllerException("erro ao incluir os dados na tabela");
-		}
+		
+		CadastrarUsuarios cadastro = new CadastrarUsuarios();
+		cadastro.CadastrarUsuario(nome, cpf, senha, endereco, CLIENTE, NVCLIENTE);
 
 	}
 
-	public void cadastrarFuncionario(String nome, String cpf, String senha, String endereco) throws ControllerException {
+	public void cadastrarFuncionario(String nome, String cpf, String senha, String endereco)
+			throws ControllerException {
 
 		try {
 			validarCPF(cpf);
@@ -123,24 +110,9 @@ public class UserController {
 		if (nome.equals("")) {
 			throw new ControllerException("Faltou Digitar um nome!");
 		}
-
-		IConexao banco = new ConexaoMySQL();
-		Connection conexao = banco.getConexao();
-		Statement stmt;
-
-		try {
-			stmt = conexao.createStatement();
-		} catch (SQLException e) {
-			throw new ControllerException("Erro ao criar o Statement!");
-		}
-
-		try {
-			stmt.executeUpdate("insert into usuarios(nome, cpf, senha, Endereco, tipo_usuario, tipo_cliente)"
-					+ "values('" + nome + "','" + cpf + "','" + senha + "','" + endereco + "','" + FUNCIONARIO + "','"
-					+ NVFUNCIONARIO + "')");
-		} catch (SQLException e) {
-			throw new ControllerException("erro ao incluir os dados na tabela");
-		}
+		
+		CadastrarUsuarios cadastro = new CadastrarUsuarios();
+		cadastro.CadastrarUsuario(nome, cpf, senha, endereco, FUNCIONARIO, NVFUNCIONARIO);
 
 	}
 
@@ -155,24 +127,10 @@ public class UserController {
 		if (nome.equals("")) {
 			throw new ControllerException("Faltou Digitar um nome!");
 		}
+		
+		CadastrarUsuarios cadastro = new CadastrarUsuarios();
+		cadastro.CadastrarUsuario(nome, cpf, senha, endereco, GERENTE, NVGERENTE);
 
-		IConexao banco = new ConexaoMySQL();
-		Connection conexao = banco.getConexao();
-		Statement stmt;
-
-		try {
-			stmt = conexao.createStatement();
-		} catch (SQLException e) {
-			throw new ControllerException("Erro ao criar o Statement!");
-		}
-
-		try {
-			stmt.executeUpdate("insert into usuarios(nome, cpf, senha, Endereco, tipo_usuario, tipo_cliente)"
-					+ "values('" + nome + "','" + cpf + "','" + senha + "','" + endereco + "','" + GERENTE + "','"
-					+ NVGERENTE + "')");
-		} catch (SQLException e) {
-			throw new ControllerException("erro ao incluir os dados na tabela");
-		}
 
 	}
 
