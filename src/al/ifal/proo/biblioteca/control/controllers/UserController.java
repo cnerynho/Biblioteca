@@ -24,14 +24,14 @@ public class UserController {
 
 		ConsultarUsuarios consulta = new ConsultarUsuarios();
 		ResultSet rs = consulta.consultaCPF(cpf);
-		
+
 		try {
-			if(!rs.next()){
+			if (!rs.next()) {
 				throw new ControllerException("Consulta vazia");
 			}
 		} catch (SQLException e) {
 			throw new ControllerException("Erro ao fazer a Consulta");
-		}catch (ControllerException e) {
+		} catch (ControllerException e) {
 			throw e;
 		}
 		try {
@@ -92,7 +92,7 @@ public class UserController {
 		if (nome.equals("")) {
 			throw new ControllerException("Faltou Digitar um nome!");
 		}
-		
+
 		CadastrarUsuarios cadastro = new CadastrarUsuarios();
 		cadastro.CadastrarUsuario(nome, cpf, senha, endereco, CLIENTE, NVCLIENTE);
 
@@ -110,7 +110,7 @@ public class UserController {
 		if (nome.equals("")) {
 			throw new ControllerException("Faltou Digitar um nome!");
 		}
-		
+
 		CadastrarUsuarios cadastro = new CadastrarUsuarios();
 		cadastro.CadastrarUsuario(nome, cpf, senha, endereco, FUNCIONARIO, NVFUNCIONARIO);
 
@@ -127,11 +127,41 @@ public class UserController {
 		if (nome.equals("")) {
 			throw new ControllerException("Faltou Digitar um nome!");
 		}
-		
+
 		CadastrarUsuarios cadastro = new CadastrarUsuarios();
 		cadastro.CadastrarUsuario(nome, cpf, senha, endereco, GERENTE, NVGERENTE);
 
+	}
 
+	public Usuario consultarUsuarioPeloID(int iD) throws ControllerException {
+		ConsultarUsuarios consulta = new ConsultarUsuarios();
+		ResultSet rs = consulta.consultaID(iD);
+
+		try {
+			if (!rs.next()) {
+				throw new ControllerException("Consulta vazia");
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		} catch (ControllerException e) {
+			throw e;
+		}
+		try {
+
+			switch (rs.getInt(6)) {
+			case CLIENTE:
+				return new Cliente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4));
+			case FUNCIONARIO:
+				return new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5),
+						rs.getString(4));
+			case GERENTE:
+				return new Gerente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5), rs.getString(4));
+
+			}
+			throw new Exception();
+		} catch (Exception e) {
+			throw new ControllerException("Erro ao fazer a consulta!");
+		}
 	}
 
 }

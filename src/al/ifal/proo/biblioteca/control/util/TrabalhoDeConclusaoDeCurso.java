@@ -8,7 +8,7 @@ public class TrabalhoDeConclusaoDeCurso extends Item {
 	private String orientador;
 	private String campoDeEstudo;
 
-	public TrabalhoDeConclusaoDeCurso(int iD, String nome, Setor setor, boolean isDisponivel, int ano, String autor,
+	public TrabalhoDeConclusaoDeCurso(int iD, String nome, Setor setor, boolean isDisponivel, String autor,
 			String institutoSuperior, String curso, String orientador, String campoDeEstudo) {
 		super(iD, nome, setor, isDisponivel);
 		this.autor = autor;

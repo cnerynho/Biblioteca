@@ -94,7 +94,7 @@ public class CadastrarItens {
 		}
 
 		try {
-			int ID = cadastrarItem(nome, setor.getiD(), ItemController.RESVISTA);
+			int ID = cadastrarItem(nome, setor.getiD(), ItemController.REVISTA);
 			stmt.executeUpdate(
 					"INSERT INTO revistas(id, ano, numero)" + "values('" + ID + "','" + ano + "','" + numero + "')");
 		} catch (SQLException e) {

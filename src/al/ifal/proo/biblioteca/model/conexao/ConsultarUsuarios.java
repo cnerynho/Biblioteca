@@ -21,7 +21,7 @@ public class ConsultarUsuarios {
 			throw new ControllerException("Erro ao criar o Statement!");
 		}
 		try {
-			return stmt.executeQuery("SELECT * FROM usuarios WHERE cpf=" + CPF + "");
+			return stmt.executeQuery("SELECT * FROM usuarios WHERE cpf='" + CPF + "'");
 
 		} catch (SQLException e) {
 			throw new ControllerException("Erro ao fazer a consulta!");
@@ -61,7 +61,7 @@ public class ConsultarUsuarios {
 			throw new ControllerException("Erro ao criar o Statement!");
 		}
 		try {
-			return stmt.executeQuery("SELECT * FROM usuarios WHERE UPPER(nome) LIKE %" + nome + "%");
+			return stmt.executeQuery("SELECT * FROM usuarios WHERE nome LIKE '%" + nome + "%';");
 
 		} catch (SQLException e) {
 			throw new ControllerException("Erro ao fazer a consulta!");
