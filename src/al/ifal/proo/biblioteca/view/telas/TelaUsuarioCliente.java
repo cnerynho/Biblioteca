@@ -38,14 +38,11 @@ public class TelaUsuarioCliente extends Tela  {
 			
 			switch(entrada.nextInt()){
 				case 1:
-					tela = new TelaConsultaItens();
-					break;
+					return new TelaConsultaItens();
 				case 2:
-					tela = new TelaConsultaItensLocados(controller.getUsuario());
-					break;
+					return new TelaConsultaItensLocados(controller.getUsuario());
 				case 3:
-					tela = new TelaAlterarSenha(controller.getUsuario());
-					break;
+					return new TelaAlterarSenha(controller.getUsuario());
 				case 5:
 					controller.Exit();
 				case 4:

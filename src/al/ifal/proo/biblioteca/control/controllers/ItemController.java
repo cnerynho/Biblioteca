@@ -253,6 +253,30 @@ public class ItemController {
 		}
 	}
 
+	public Livro consultarLivroPeloID(int _iD) throws ControllerException {
+		ConsultarItens consulta = new ConsultarItens();
+		ResultSet rs = consulta.consultaItemID(_iD);
+		UtilController consultarSetor = new UtilController();
+
+		try {
+			rs.next();
+			ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), consultarSetor.consultarSetorID(rs.getInt(3)),
+					rs.getBoolean(4), rs.getInt(5));
+			if (item.getTipoItem() == LIVRO) {
+				rs = consulta.consultaLivroID(item.getiD());
+				return new Livro(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getString(2),
+						rs.getInt(3), rs.getString(5), rs.getString(4));
+			}else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		} catch (ControllerException e) {
+			throw e;
+		}
+		
+	}
+
 	public ArrayList<Item> consultarLivroPelaEditora(String _editora) throws ControllerException {
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();

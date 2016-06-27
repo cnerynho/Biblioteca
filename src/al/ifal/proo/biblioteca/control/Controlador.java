@@ -28,7 +28,7 @@ public class Controlador {
 
 	}
 
-	public Object getUsuario() {
+	public Usuario getUsuario() {
 		return USER;
 	}
 }

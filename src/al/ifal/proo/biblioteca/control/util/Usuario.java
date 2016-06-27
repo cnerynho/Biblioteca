@@ -2,7 +2,7 @@ package al.ifal.proo.biblioteca.control.util;
 
 import al.ifal.proo.biblioteca.view.telas.Tela;
 
-public abstract class Usuario {
+public abstract class Usuario implements IUser{
 
 	private int ID;
 	private String nome;

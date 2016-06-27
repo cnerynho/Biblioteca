@@ -22,9 +22,11 @@ public class TelaConsultaItens extends Tela {
 			case 2:
 				return new TelaConsultarRevistas();
 			case 3:
-				return new TelaCon
+				return new TelaConsultarTCC();
 			case 4:
+				return new TelaConsultarItensGeral();
 			case 5:
+				return null;
 			}
 		}
 
