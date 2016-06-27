@@ -31,6 +31,51 @@ public class TelaOpcoesLivro extends Tela {
 		return null;
 	}
 
+	private Tela menuGerente() {
+		Scanner entrada = new Scanner(System.in);
+		UserController control = new UserController();
+		ItemController itemControl = new ItemController();
+		Controlador controller = new Controlador();
+
+		while (true) {
+			System.out.println(
+							"DETALHES: \n" 
+							+ consultado + "\n" 
+							+ "OPCOES" 
+							+ "1 - EMPRESTAR A UM CLIENTE\n"
+							+ "2 - TORNAR INDISPONIVEL\n"
+							+ "3 - TORNAR DISPONIVEL\n"
+							+ "4 - PEGAR EMPRESTADO\n"
+							+ "5 - ALTERAR INFORMACOES DO LIVRO\n" 
+							+ "6 - VOLTAR AO MENU PRINCIPAL\n");
+			
+			switch (entrada.nextInt()) {
+			case 1:
+				return new TelaEmprestarLivroAoCliente(consultado);
+			case 2:
+				consultado.setDisponivel(false);
+				itemControl.alterarLivro(consultado);
+				return null;
+			case 3:
+				consultado.setDisponivel(true);
+				itemControl.alterarLivro(consultado);
+				return null;
+			case 5:
+				return new TelaAlterarInformacoesDoLivro(consultado);
+			case 4:
+				try {
+					control.emprestarLivro(controller.getUsuario(), consultado);
+				} catch (ControllerException e) {
+					System.out.println("ERRO AO LOCAR LIVRO");
+					break;
+				}
+			case 6:
+				return null;
+			}
+
+		}
+	}
+
 	private Tela menuFuncionario() {
 		Scanner entrada = new Scanner(System.in);
 		UserController control = new UserController();
@@ -45,8 +90,8 @@ public class TelaOpcoesLivro extends Tela {
 							+ "1 - EMPRESTAR A UM CLIENTE\n"
 							+ "2 - TORNAR INDISPONIVEL\n"
 							+ "3 - TORNAR DISPONIVEL\n"
-							+ "3 - PEGAR EMPRESTADO\n" 
-							+ "4 - VOLTAR AO MENU PRINCIPAL\n");
+							+ "4 - PEGAR EMPRESTADO\n" 
+							+ "5 - VOLTAR AO MENU PRINCIPAL\n");
 			
 			switch (entrada.nextInt()) {
 			case 1:

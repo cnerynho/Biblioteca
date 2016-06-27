@@ -1,5 +1,6 @@
 package al.ifal.proo.biblioteca.view.telas;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import al.ifal.proo.biblioteca.control.controllers.ItemController;
@@ -42,6 +43,21 @@ public class TelaConsultarLivros extends Tela {
 		}
 	}
 
+	private Tela consultarPorNome() {
+		
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Digite o Nome do Livro que deseja Consultar");
+		ItemController consulta = new ItemController();
+		String nome = entrada.nextLine();
+		try {
+			ArrayList<Livro> consultados = consulta.consultarLivroPeloNome(nome);
+			return new TelaExibirLivros(consultados);
+		} catch (ControllerException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
 	private Tela consultarPorID() {
 		Scanner entrada = new Scanner(System.in);
 		System.out.println("Digite o ID do Livro que deseja Consultar");
@@ -54,9 +70,6 @@ public class TelaConsultarLivros extends Tela {
 			System.out.println(e.getMessage());
 			return null;
 		}
-		
-		
-		return null;
 	}
 
 }
