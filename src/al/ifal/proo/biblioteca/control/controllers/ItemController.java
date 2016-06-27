@@ -219,12 +219,12 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarLivroPeloNome(String _nome) throws ControllerException {
+	public ArrayList<Livro> consultarLivroPeloNome(String _nome) throws ControllerException {
 		ConsultarItens consulta = new ConsultarItens();
 		ResultSet rs = consulta.consultaItemNome(_nome);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<ItemVO> itensVO = new ArrayList<ItemVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<Livro> itens = new ArrayList<Livro>();
 
 		try {
 			while (rs.next()) {
