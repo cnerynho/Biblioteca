@@ -48,4 +48,10 @@ public class Livro extends Item {
 		this.genero = genero;
 	}
 
+	@Override
+	public String toString() {
+		return "Livro " + this.toStringItem() + ", Editora = " + editora + ", Edicao = " + edicao + ", Autor = " + autor
+				+ ", Genero = " + genero;
+	}
+
 }

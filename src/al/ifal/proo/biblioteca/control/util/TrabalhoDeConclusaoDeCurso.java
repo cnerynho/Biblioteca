@@ -58,4 +58,11 @@ public class TrabalhoDeConclusaoDeCurso extends Item {
 		this.campoDeEstudo = areaDeInteresse;
 	}
 
+	@Override
+	public String toString() {
+		return "TCC " + this.getiD() + this.toStringItem() + ", Autor = " + autor + ", Instituto Superior = "
+				+ institutoSuperior + ", Curso = " + curso + ", Orientador = " + orientador + ", Campo De Estudo = "
+				+ campoDeEstudo;
+	}
+
 }

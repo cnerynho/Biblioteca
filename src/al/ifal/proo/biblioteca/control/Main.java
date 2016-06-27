@@ -2,11 +2,9 @@ package al.ifal.proo.biblioteca.control;
 
 import java.sql.Date;
 
-import al.ifal.proo.biblioteca.control.controllers.UserController;
-import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
+import al.ifal.proo.biblioteca.control.util.Item;
+import al.ifal.proo.biblioteca.control.util.Livro;
 import al.ifal.proo.biblioteca.control.util.Setor;
-import al.ifal.proo.biblioteca.control.util.Usuario;
-import al.ifal.proo.biblioteca.model.conexao.ConsultarItens;
 
 class Main {
 
@@ -22,6 +20,14 @@ class Main {
 		Date data = new Date(2016-1900,5,26);
 		data.getYear();
 		
+		//Cliente a = new Cliente(1, "asdas", "12f2", "asdasd", "asdasd");
+		//System.out.println(a);
+		Setor setor = new Setor(22, "asd", "");
+		
+		Item a = new Livro(1,"livro 1" , setor, true, "Saraiva", 1, "carlos Nery", "ficcao cientifica");
+		System.out.println(a);
+		
+		/*
 		Setor setor = new Setor(22, "asd", "");
 		ConsultarItens a = new ConsultarItens();
 		UserController i = new UserController();
@@ -34,7 +40,7 @@ class Main {
 		} catch (ControllerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

@@ -67,4 +67,11 @@ public abstract class Usuario {
 		this.tipoCliente = tipoCliente;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario |" + ID + "|   Nome = " + nome + ", CPF = " + cpf + ", Endereco = " + endereco;
+	}
+	
+	
+
 }

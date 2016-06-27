@@ -37,4 +37,9 @@ public class Setor {
 		this.descricao = descricao;
 	}
 
+	@Override
+	public String toString() {
+		return "Setor " + iD + " [ Localizacao = " + localizacao + ", Descricao = " + descricao + "]";
+	}
+
 }

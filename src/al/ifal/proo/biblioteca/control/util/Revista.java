@@ -27,4 +27,11 @@ public class Revista extends Item {
 		this.numero = numero;
 	}
 
+	@Override
+	public String toString() {
+		return "Revista "+this.toStringItem()+ ", Ano = " + ano + ", Numero = " + numero;
+	}
+	
+	
+
 }

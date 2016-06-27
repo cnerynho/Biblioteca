@@ -47,4 +47,13 @@ public abstract class Item {
 		this.isDisponivel = isDisponivel;
 	}
 
+	public String toStringItem() {
+		if (isDisponivel) {
+			return "|"+ iD + "|  Nome = " + nome + ", Setor = " + setor.getiD() + ", Disponivel ";
+		} else {
+			return "|"+ iD + "|  Nome = " + nome + ", Setor = " + setor + ", NAO Disponivel ";
+
+		}
+	}
+
 }
