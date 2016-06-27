@@ -1,4 +1,4 @@
-package al.ifal.proo.biblioteca.model.conexao;
+package al.ifal.proo.biblioteca.model.valueObjects;
 
 import al.ifal.proo.biblioteca.control.util.Setor;
 
