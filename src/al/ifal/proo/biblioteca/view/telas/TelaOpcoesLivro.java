@@ -18,13 +18,12 @@ public class TelaOpcoesLivro extends Tela {
 
 	public Tela gerarTela() {
 		Controlador controller = new Controlador();
-		UserController usuarioC = new UserController();
 		switch (controller.getUsuario().getTipoUsuario()) {
-		case usuarioC.CLIENTE:
+		case UserController.CLIENTE:
 			return menuCliente();
-		case usuarioC.FUNCIONARIO:
+		case UserController.FUNCIONARIO:
 			return menuFuncionario();
-		case usuarioC.GERENTE:
+		case UserController.GERENTE:
 			return menuGerente();
 		}
 
