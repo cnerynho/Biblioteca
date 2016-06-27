@@ -2,9 +2,10 @@ package al.ifal.proo.biblioteca.control;
 
 import java.sql.Date;
 
-import al.ifal.proo.biblioteca.control.controllers.ItemController;
+import al.ifal.proo.biblioteca.control.controllers.UserController;
 import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
 import al.ifal.proo.biblioteca.control.util.Setor;
+import al.ifal.proo.biblioteca.control.util.Usuario;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarItens;
 
 class Main {
@@ -23,11 +24,13 @@ class Main {
 		
 		Setor setor = new Setor(22, "asd", "");
 		ConsultarItens a = new ConsultarItens();
-		ItemController i = new ItemController();
+		UserController i = new UserController();
 		
 		
 		try {
-			System.out.println(i.consultarItemPeloID(15).getNome());
+			for(Usuario aux:i.consultarTodosClientes()){
+				System.out.println(aux.getID()+" "+aux.getNome());
+			}
 		} catch (ControllerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

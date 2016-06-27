@@ -2,6 +2,7 @@ package al.ifal.proo.biblioteca.control.controllers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
 import al.ifal.proo.biblioteca.control.util.Cliente;
@@ -164,4 +165,74 @@ public class UserController {
 		}
 	}
 
+	public ArrayList<Usuario> consultarUsuarioPeloNome(String nome) throws ControllerException {
+		ConsultarUsuarios consulta = new ConsultarUsuarios();
+		ResultSet rs = consulta.consultaNome(nome);
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+		try {
+			while (rs.next()) {
+				switch (rs.getInt(6)) {
+				case CLIENTE:
+					usuarios.add(new Cliente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5),
+							rs.getString(4)));
+					break;
+				case FUNCIONARIO:
+					usuarios.add(new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5),
+							rs.getString(4)));
+					break;
+				case GERENTE:
+					usuarios.add(new Gerente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5),
+							rs.getString(4)));
+					break;
+				}
+			}
+			return usuarios;
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		}
+	}
+	
+	public ArrayList<Usuario> consultarUsuarioPeloTipo(int tipoUsuario) throws ControllerException {
+		ConsultarUsuarios consulta = new ConsultarUsuarios();
+		ResultSet rs = consulta.consultaTipoUsuario(tipoUsuario);
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+		try {
+			while (rs.next()) {
+				switch (rs.getInt(6)) {
+				case CLIENTE:
+					usuarios.add(new Cliente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5),
+							rs.getString(4)));
+					break;
+				case FUNCIONARIO:
+					usuarios.add(new Funcionario(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5),
+							rs.getString(4)));
+					break;
+				case GERENTE:
+					usuarios.add(new Gerente(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(5),
+							rs.getString(4)));
+					break;
+				}
+			}
+			return usuarios;
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		}
+	}
+
+	public ArrayList<Usuario> consultarTodosClientes() throws ControllerException{
+		return consultarUsuarioPeloTipo(CLIENTE);
+	}
+	public ArrayList<Usuario> consultarTodosFuncionarios() throws ControllerException{
+		return consultarUsuarioPeloTipo(FUNCIONARIO);
+		
+	}
+	public ArrayList<Usuario> consultarTodosGerentes() throws ControllerException{
+		return consultarUsuarioPeloTipo(GERENTE);
+		
+	}
+	
+	
+	
 }

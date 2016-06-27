@@ -2,6 +2,7 @@ package al.ifal.proo.biblioteca.control.controllers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
 import al.ifal.proo.biblioteca.control.util.Item;
@@ -11,6 +12,7 @@ import al.ifal.proo.biblioteca.control.util.Setor;
 import al.ifal.proo.biblioteca.control.util.TrabalhoDeConclusaoDeCurso;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarItens;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarItens;
+import al.ifal.proo.biblioteca.model.conexao.ItemVO;
 
 public class ItemController {
 
@@ -72,9 +74,9 @@ public class ItemController {
 
 	}
 
-	public Item consultarItemPeloID(int iD) throws ControllerException {
+	public Item consultarItemPeloID(int _iD) throws ControllerException {
 		ConsultarItens consulta = new ConsultarItens();
-		ResultSet rs = consulta.consultaItemID(iD);
+		ResultSet rs = consulta.consultaItemID(_iD);
 		UtilController consultarSetor = new UtilController();
 
 		int iD_item;
@@ -115,6 +117,98 @@ public class ItemController {
 
 			}
 			throw new Exception();
+		} catch (Exception e) {
+			throw new ControllerException("Erro ao fazer a consulta!");
+		}
+	}
+
+	public ArrayList<Item> consultarItemPeloNome(String _nome) throws ControllerException {
+		ConsultarItens consulta = new ConsultarItens();
+		ResultSet rs = consulta.consultaItemNome(_nome);
+		UtilController consultarSetor = new UtilController();
+		ArrayList<ItemVO> itensVO = new ArrayList<ItemVO>();
+		ArrayList<Item> itens = new ArrayList<Item>();
+
+		try {
+			while (rs.next()) {
+				ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), consultarSetor.consultarSetorID(rs.getInt(3)),
+						rs.getBoolean(4), rs.getInt(5));
+				itensVO.add(item);
+
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		} catch (ControllerException e) {
+			throw e;
+		}
+		try {
+			for(ItemVO i:itensVO){
+				switch (i.getTipoItem()) {
+				case LIVRO:
+					rs = consulta.consultaLivroID(i.getiD());
+					rs.next();
+					itens.add(new Livro(i.getiD(), i.getNome(), i.getSetor(), i.isDisponivel(), rs.getString(2), rs.getInt(3), rs.getString(5),
+							rs.getString(4)));
+					break;
+				case REVISTA:
+					rs = consulta.consultaRevistaID(i.getiD());
+					rs.next();
+					itens.add( new Revista(i.getiD(), i.getNome(), i.getSetor(), i.isDisponivel(), rs.getInt(2), rs.getInt(3)));
+					break;
+				case TCC:
+					rs = consulta.consultaLivroID(i.getiD());
+					rs.next();
+					itens.add( new TrabalhoDeConclusaoDeCurso(i.getiD(), i.getNome(), i.getSetor(), i.isDisponivel(), rs.getString(2),
+							rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+					break;
+				}
+			}
+			return itens;
+		} catch (Exception e) {
+			throw new ControllerException("Erro ao fazer a consulta!");
+		}
+	}
+
+	public ArrayList<Item> consultarItemPeloSetor(Setor _setor) throws ControllerException {
+		ConsultarItens consulta = new ConsultarItens();
+		ResultSet rs = consulta.consultaItemSetor(_setor);
+		UtilController consultarSetor = new UtilController();
+		ArrayList<ItemVO> itensVO = new ArrayList<ItemVO>();
+		ArrayList<Item> itens = new ArrayList<Item>();
+
+		try {
+			while (rs.next()) {
+				ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), _setor,
+						rs.getBoolean(4), rs.getInt(5));
+				itensVO.add(item);
+
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		}
+		try {
+			for(ItemVO i:itensVO){
+				switch (i.getTipoItem()) {
+				case LIVRO:
+					rs = consulta.consultaLivroID(i.getiD());
+					rs.next();
+					itens.add(new Livro(i.getiD(), i.getNome(), i.getSetor(), i.isDisponivel(), rs.getString(2), rs.getInt(3), rs.getString(5),
+							rs.getString(4)));
+					break;
+				case REVISTA:
+					rs = consulta.consultaRevistaID(i.getiD());
+					rs.next();
+					itens.add( new Revista(i.getiD(), i.getNome(), i.getSetor(), i.isDisponivel(), rs.getInt(2), rs.getInt(3)));
+					break;
+				case TCC:
+					rs = consulta.consultaLivroID(i.getiD());
+					rs.next();
+					itens.add( new TrabalhoDeConclusaoDeCurso(i.getiD(), i.getNome(), i.getSetor(), i.isDisponivel(), rs.getString(2),
+							rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+					break;
+				}
+			}
+			return itens;
 		} catch (Exception e) {
 			throw new ControllerException("Erro ao fazer a consulta!");
 		}
