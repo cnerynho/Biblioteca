@@ -27,4 +27,8 @@ public class Controlador {
 		isLogged = false;
 
 	}
+
+	public Object getUsuario() {
+		return USER;
+	}
 }

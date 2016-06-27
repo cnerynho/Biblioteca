@@ -1,5 +1,7 @@
 package al.ifal.proo.biblioteca.control.util;
 
+import al.ifal.proo.biblioteca.view.telas.Tela;
+
 public abstract class Usuario {
 
 	private int ID;
@@ -72,6 +74,7 @@ public abstract class Usuario {
 		return "Usuario |" + ID + "|   Nome = " + nome + ", CPF = " + cpf + ", Endereco = " + endereco;
 	}
 	
+	public abstract Tela getTela();
 	
 
 }

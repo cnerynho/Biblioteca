@@ -1,6 +1,8 @@
 package al.ifal.proo.biblioteca.control.util;
 
 import al.ifal.proo.biblioteca.control.controllers.UserController;
+import al.ifal.proo.biblioteca.view.telas.Tela;
+import al.ifal.proo.biblioteca.view.telas.TelaUsuarioCliente;
 
 public class Cliente extends Usuario implements IUser {
 	
@@ -19,4 +21,7 @@ public class Cliente extends Usuario implements IUser {
 		this.senha = senha;
 	}
 
+	public Tela getTela(){
+		return new TelaUsuarioCliente();
+	}
 }

@@ -3,7 +3,7 @@ package al.ifal.proo.biblioteca.view;
 import al.ifal.proo.biblioteca.view.telas.Tela;
 import al.ifal.proo.biblioteca.view.telas.TelaInicial;
 import al.ifal.proo.biblioteca.view.telas.TelaLogin;
-import al.ifal.proo.biblioteca.view.telas.TelaUsuarioAdministrador;
+import al.ifal.proo.biblioteca.view.telas.TelaUsuarioCliente;
 
 public class View {
 
@@ -24,7 +24,7 @@ public class View {
 
 		switch (nivelAcesso) {
 		case 1:
-			tela = new TelaUsuarioAdministrador();
+			tela = new TelaUsuarioCliente();
 			break;
 		case 2:
 
