@@ -8,6 +8,7 @@ import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
 import al.ifal.proo.biblioteca.control.util.Cliente;
 import al.ifal.proo.biblioteca.control.util.Funcionario;
 import al.ifal.proo.biblioteca.control.util.Gerente;
+import al.ifal.proo.biblioteca.control.util.Livro;
 import al.ifal.proo.biblioteca.control.util.Usuario;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarUsuarios;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarUsuarios;
@@ -193,7 +194,7 @@ public class UserController {
 			throw new ControllerException("Erro ao fazer a Consulta");
 		}
 	}
-	
+
 	public ArrayList<Usuario> consultarUsuarioPeloTipo(int tipoUsuario) throws ControllerException {
 		ConsultarUsuarios consulta = new ConsultarUsuarios();
 		ResultSet rs = consulta.consultaTipoUsuario(tipoUsuario);
@@ -222,19 +223,22 @@ public class UserController {
 		}
 	}
 
-	public ArrayList<Usuario> consultarTodosClientes() throws ControllerException{
+	public ArrayList<Usuario> consultarTodosClientes() throws ControllerException {
 		return consultarUsuarioPeloTipo(CLIENTE);
 	}
-	public ArrayList<Usuario> consultarTodosFuncionarios() throws ControllerException{
+
+	public ArrayList<Usuario> consultarTodosFuncionarios() throws ControllerException {
 		return consultarUsuarioPeloTipo(FUNCIONARIO);
-		
+
 	}
-	public ArrayList<Usuario> consultarTodosGerentes() throws ControllerException{
+
+	public ArrayList<Usuario> consultarTodosGerentes() throws ControllerException {
 		return consultarUsuarioPeloTipo(GERENTE);
-		
+
 	}
-	
-	public void edicaoUsuario(String nome, String cpf, String senha, String endereco, int tipoUsuario, int nvlUsuario) throws ControllerException {
+
+	public void edicaoUsuario(String nome, String cpf, String senha, String endereco, int tipoUsuario, int nvlUsuario)
+			throws ControllerException {
 
 		try {
 			validarCPF(cpf);
@@ -250,5 +254,11 @@ public class UserController {
 		editar.editarUsuario(nome, cpf, senha, endereco, tipoUsuario, nvlUsuario);
 
 	}
-	
+
+	public void emprestarLivro(Usuario usuario, Livro livro) throws ControllerException {
+		EmprestimosDeLivro emprestarLivro = new EmprestimosDeLivro();
+		emprestarLivro.novoEmprestimo(usuario.getID(),livro.getiD());
+		
+	}
+
 }

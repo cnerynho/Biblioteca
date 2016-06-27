@@ -266,7 +266,7 @@ public class ItemController {
 				rs = consulta.consultaLivroID(item.getiD());
 				return new Livro(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getString(2),
 						rs.getInt(3), rs.getString(5), rs.getString(4));
-			}else {
+			} else {
 				return null;
 			}
 		} catch (SQLException e) {
@@ -274,7 +274,7 @@ public class ItemController {
 		} catch (ControllerException e) {
 			throw e;
 		}
-		
+
 	}
 
 	public ArrayList<Item> consultarLivroPelaEditora(String _editora) throws ControllerException {
@@ -608,8 +608,8 @@ public class ItemController {
 			throw new ControllerException("Erro ao fazer a consulta!");
 		}
 	}
-        
-        public void editarLivro(String nome, Setor setor, String editora, int edicao, String autor, String genero)
+
+	public void editarLivro(String nome, Setor setor, String editora, int edicao, String autor, String genero)
 			throws ControllerException {
 
 		if (nome.equals("")) {
@@ -626,8 +626,8 @@ public class ItemController {
 		}
 
 	}
-        
-        public void editarRevista(String nome, Setor setor, int ano, int numero) throws ControllerException {
+
+	public void editarRevista(String nome, Setor setor, int ano, int numero) throws ControllerException {
 
 		if (nome.equals("")) {
 			throw new ControllerException("Nome da revista est� em branco");
