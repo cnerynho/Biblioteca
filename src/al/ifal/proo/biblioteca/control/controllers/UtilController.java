@@ -12,7 +12,7 @@ import al.ifal.proo.biblioteca.control.util.Usuario;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarSetor;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarEmprestimo;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarSetor;
-
+import al.ifal.proo.biblioteca.model.conexao.EditarSetor;
 public class UtilController {
 
 	public void cadastrarSetor(String localizacao, String descricao) throws ControllerException {
@@ -84,6 +84,18 @@ public class UtilController {
 		} catch (ControllerException e) {
 			throw e;
 		}
+
+	}
+        
+        public void editarSetor(String localizacao, String descricao) throws ControllerException {
+
+		if (localizacao.equals("")) {
+			throw new ControllerException("Faltou Digitar a localizacao");
+		}
+
+		EditarSetor editar = new EditarSetor();
+
+		editar.edicaoSetor(localizacao, descricao);
 
 	}
 

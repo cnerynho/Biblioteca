@@ -16,6 +16,7 @@ import al.ifal.proo.biblioteca.model.valueObjects.ItemVO;
 import al.ifal.proo.biblioteca.model.valueObjects.LivroVO;
 import al.ifal.proo.biblioteca.model.valueObjects.RevistaVO;
 import al.ifal.proo.biblioteca.model.valueObjects.TccVO;
+import al.ifal.proo.biblioteca.model.conexao.EditarItens;
 
 public class ItemController {
 
@@ -27,7 +28,7 @@ public class ItemController {
 			throws ControllerException {
 
 		if (nome.equals("")) {
-			throw new ControllerException("Nome do Livro está em branco");
+			throw new ControllerException("Nome do Livro estï¿½ em branco");
 		}
 
 		CadastrarItens cadastro = new CadastrarItens();
@@ -44,7 +45,7 @@ public class ItemController {
 	public void cadastrarRevista(String nome, Setor setor, int ano, int numero) throws ControllerException {
 
 		if (nome.equals("")) {
-			throw new ControllerException("Nome da revista está em branco");
+			throw new ControllerException("Nome da revista estï¿½ em branco");
 		}
 
 		CadastrarItens cadastro = new CadastrarItens();
@@ -63,7 +64,7 @@ public class ItemController {
 			String orientador, String campoDeEstudo) throws ControllerException {
 
 		if (nome.equals("")) {
-			throw new ControllerException("Nome do trabalho está em branco");
+			throw new ControllerException("Nome do trabalho estï¿½ em branco");
 		}
 
 		CadastrarItens cadastro = new CadastrarItens();
@@ -582,6 +583,60 @@ public class ItemController {
 		} catch (Exception e) {
 			throw new ControllerException("Erro ao fazer a consulta!");
 		}
+	}
+        
+        public void editarLivro(String nome, Setor setor, String editora, int edicao, String autor, String genero)
+			throws ControllerException {
+
+		if (nome.equals("")) {
+			throw new ControllerException("Nome do Livro estï¿½ em branco");
+		}
+
+		EditarItens editar = new EditarItens();
+
+		try {
+			editar.editarLivro(nome, setor, editora, edicao, genero, autor);
+
+		} catch (ControllerException e) {
+			throw new ControllerException("Ocorreu algum problema, tente novamente");
+		}
+
+	}
+        
+        public void editarRevista(String nome, Setor setor, int ano, int numero) throws ControllerException {
+
+		if (nome.equals("")) {
+			throw new ControllerException("Nome da revista estï¿½ em branco");
+		}
+
+		EditarItens editar = new EditarItens();
+
+		try {
+			editar.editarRevista(nome, setor, ano, numero);
+			;
+
+		} catch (ControllerException e) {
+			throw new ControllerException("Ocorreu algum problema, tente novamente");
+		}
+
+	}
+
+	public void editarTCC(String nome, Setor setor, String autor, String institutoSuperior, String curso,
+			String orientador, String campoDeEstudo) throws ControllerException {
+
+		if (nome.equals("")) {
+			throw new ControllerException("Nome do trabalho estï¿½ em branco");
+		}
+
+		EditarItens editar = new EditarItens();
+
+		try {
+			editar.editarTCC(nome, setor, autor, institutoSuperior, curso, orientador, campoDeEstudo);
+
+		} catch (ControllerException e) {
+			throw new ControllerException("Ocorreu algum problema, tente novamente");
+		}
+
 	}
 
 }

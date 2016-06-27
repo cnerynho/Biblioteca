@@ -11,6 +11,7 @@ import al.ifal.proo.biblioteca.control.util.Gerente;
 import al.ifal.proo.biblioteca.control.util.Usuario;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarUsuarios;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarUsuarios;
+import al.ifal.proo.biblioteca.model.conexao.EditarUsuarios;
 
 public class UserController {
 
@@ -233,6 +234,21 @@ public class UserController {
 		
 	}
 	
-	
+	public void edicaoUsuario(String nome, String cpf, String senha, String endereco, int tipoUsuario, int nvlUsuario) throws ControllerException {
+
+		try {
+			validarCPF(cpf);
+			validarSenha(senha);
+		} catch (ControllerException e) {
+			throw e;
+		}
+		if (nome.equals("")) {
+			throw new ControllerException("Faltou Digitar um nome!");
+		}
+
+		EditarUsuarios editar = new EditarUsuarios();
+		editar.editarUsuario(nome, cpf, senha, endereco, tipoUsuario, nvlUsuario);
+
+	}
 	
 }

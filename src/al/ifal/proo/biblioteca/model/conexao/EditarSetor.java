@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 
 public class EditarSetor {
-    public void CadastrarNovoSetor (String localizacao, String descricao) throws ControllerException{
+    public void edicaoSetor (String localizacao, String descricao) throws ControllerException{
 		
 		IConexao banco = new ConexaoMySQL();
 		Connection conexao = banco.getConexao();
