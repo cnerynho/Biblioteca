@@ -159,7 +159,6 @@ public class TelaOpcoesItem extends Tela {
 	private Tela menuCliente() {
 		Scanner entrada = new Scanner(System.in);
 		UserController control = new UserController();
-		Controlador controller = new Controlador();
 
 		while (true) {
 			System.out.println(
@@ -173,7 +172,7 @@ public class TelaOpcoesItem extends Tela {
 			switch (entrada.nextInt()) {
 			case 1:
 				try {
-					control.emprestarItem(controller.getUsuario(), item);
+					control.emprestarItem(Controlador.USER, item);
 				} catch (ControllerException e) {
 					System.out.println("ERRO AO LOCAR ITEM");
 					break;

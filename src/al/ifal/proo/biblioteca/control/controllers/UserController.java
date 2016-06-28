@@ -252,7 +252,6 @@ public class UserController {
 		emprestarItem.novoEmprestimo(usuario,item);
 		item.setDisponivel(false);
 		ItemController itemC = new ItemController();
-		
 		itemC.alterarItem(item);
 		
 		

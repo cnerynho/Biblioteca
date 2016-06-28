@@ -25,7 +25,7 @@ public class EmprestimoDeItem {
 		}
 
 		try {
-			stmt.executeUpdate("insert into emprestimos(usuario_id, data_inicio, livro_id)" + "values('"
+			stmt.executeUpdate("insert into emprestimos(usuario_id, data_inicio, item_id)" + "values('"
 					+ usuario.getID() + "','" + data + "','" + item.getiD() + "')");
 		} catch (SQLException e) {
 			throw new ControllerException("erro ao incluir os dados na tabela");

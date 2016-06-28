@@ -86,7 +86,6 @@ public class EditarItens {
 
 	}
 
-
 	public void removerItem(Item item) throws ControllerException {
 
 		IConexao banco = new ConexaoMySQL();
@@ -100,21 +99,20 @@ public class EditarItens {
 		}
 
 		try {
-			stmt.executeUpdate("remove from itens where ID = "+item.getiD()+"')");
-			
-			switch(item.getTipo()){
+			stmt.executeUpdate("remove from itens where ID = " + item.getiD() + "')");
+
+			switch (item.getTipo()) {
 			case ItemController.LIVRO:
-				stmt.executeUpdate("remove from livros where ID = "+item.getiD()+"')");
+				stmt.executeUpdate("remove from livros where ID = " + item.getiD() + "')");
 			case ItemController.REVISTA:
-				stmt.executeUpdate("remove from revistas where ID = "+item.getiD()+"')");
+				stmt.executeUpdate("remove from revistas where ID = " + item.getiD() + "')");
 			case ItemController.TCC:
-				stmt.executeUpdate("remove from tcc where ID = "+item.getiD()+"')");
+				stmt.executeUpdate("remove from tcc where ID = " + item.getiD() + "')");
 			}
 		} catch (SQLException e) {
 			throw new ControllerException("erro ao incluir os dados na tabela");
 		}
 
-		
 	}
 
 	public void editarItem(Item item) throws ControllerException {
@@ -128,18 +126,22 @@ public class EditarItens {
 		} catch (SQLException e) {
 			throw new ControllerException("Erro ao criar o Statement!");
 		}
-
-		try {			
-			stmt.executeUpdate("update itens set(Nome, id_Setor, Disponivel)" + "values('" + item.getNome() + "','"
-				+ item.getSetor().getiD() + "','" + item.isDisponivel() + "')");
-			
+		int disponibilidiade;
+		if(item.isDisponivel()){
+			disponibilidiade = 1;
+		}else{
+			disponibilidiade = 0;
+		}
+		try {
+			stmt.executeUpdate(
+					"UPDATE  itens SET Nome = '" + item.getNome() + "', id_Setor ='" + item.getSetor().getiD()
+							+ "' , Disponivel = '" + disponibilidiade + "' where ID = " + item.getiD() + ";");
 
 		} catch (SQLException e) {
+			System.out.println(e);
 			throw new ControllerException("erro ao incluir os dados na tabela");
 		}
 
 	}
-
-
 
 }

@@ -230,6 +230,7 @@ public class ItemController {
 					rs.getBoolean(4), rs.getInt(5));
 			if (item.getTipoItem() == LIVRO) {
 				rs = consulta.consultaLivroID(item.getiD());
+				rs.next();
 				return new Livro(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getString(2),
 						rs.getInt(3), rs.getString(5), rs.getString(4));
 			} else {
@@ -386,6 +387,7 @@ public class ItemController {
 					rs.getBoolean(4), rs.getInt(5));
 			if (item.getTipoItem() == REVISTA) {
 				rs = consulta.consultaRevistaID(item.getiD());
+				rs.next();
 				return new Revista(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getInt(2),
 						rs.getInt(3));
 			} else {
@@ -508,6 +510,7 @@ public class ItemController {
 					rs.getBoolean(4), rs.getInt(5));
 			if (item.getTipoItem() == TCC) {
 				rs = consulta.consultaRevistaID(item.getiD());
+				rs.next();
 				return new TrabalhoDeConclusaoDeCurso(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getString(2),
 						rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
 			} else {
