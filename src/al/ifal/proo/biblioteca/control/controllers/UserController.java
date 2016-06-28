@@ -6,11 +6,13 @@ import java.util.ArrayList;
 
 import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
 import al.ifal.proo.biblioteca.control.util.Cliente;
+import al.ifal.proo.biblioteca.control.util.Emprestimo;
 import al.ifal.proo.biblioteca.control.util.Funcionario;
 import al.ifal.proo.biblioteca.control.util.Gerente;
 import al.ifal.proo.biblioteca.control.util.Item;
 import al.ifal.proo.biblioteca.control.util.Usuario;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarUsuarios;
+import al.ifal.proo.biblioteca.model.conexao.ConsultarEmprestimo;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarUsuarios;
 import al.ifal.proo.biblioteca.model.conexao.EditarUsuarios;
 import al.ifal.proo.biblioteca.model.conexao.EmprestimoDeItem;
@@ -238,21 +240,10 @@ public class UserController {
 
 	}
 
-	public void edicaoUsuario(String nome, String cpf, String senha, String endereco, int tipoUsuario, int nvlUsuario)
-			throws ControllerException {
-
-		try {
-			validarCPF(cpf);
-			validarSenha(senha);
-		} catch (ControllerException e) {
-			throw e;
-		}
-		if (nome.equals("")) {
-			throw new ControllerException("Faltou Digitar um nome!");
-		}
+	public void editarUsuario(Usuario usuario) throws ControllerException {
 
 		EditarUsuarios editar = new EditarUsuarios();
-		editar.editarUsuario(nome, cpf, senha, endereco, tipoUsuario, nvlUsuario);
+		editar.editarUsuario(usuario);
 
 	}
 
@@ -266,5 +257,37 @@ public class UserController {
 		
 		
 	}
+
+	public ArrayList<Emprestimo> consultarEmprestimos(Usuario usuario) throws ControllerException {
+		
+		ConsultarEmprestimo consulta = new ConsultarEmprestimo();
+		ResultSet rs = consulta.consultarEmprestimo(usuario);
+		ArrayList<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
+		ItemController itemC = new ItemController();
+
+		try {
+			while (rs.next()) {
+				if(rs.getDate(5)==null){
+					emprestimos.add(new Emprestimo(rs.getInt(1),consultarUsuarioPeloID(rs.getInt(2)),itemC.consultarItemPeloID(rs.getInt(3)),rs.getDate(4)));
+				}else{
+					emprestimos.add(new Emprestimo(rs.getInt(1),consultarUsuarioPeloID(rs.getInt(2)),itemC.consultarItemPeloID(rs.getInt(3)),rs.getDate(4),rs.getDate(5)));
+				}
+			}
+			return emprestimos;
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		}
+	}
+
+	public void alterarSenhaUsuario(Usuario usuario, String novaSenha) throws ControllerException{
+	
+		validarSenha(novaSenha);
+		
+		usuario.setSenha(novaSenha);
+		
+		editarUsuario(usuario);
+		
+	}
+
 
 }

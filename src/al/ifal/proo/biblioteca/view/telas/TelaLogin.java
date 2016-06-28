@@ -18,7 +18,7 @@ public class TelaLogin extends Tela  {
 		while(user == null){
 			System.out.println("TELA DE LOGIN, PRESSIONE ENTER PARA CONTINUAR...");
 			entrada.nextLine();
-			System.out.println("Digite seu usuario:");
+			System.out.println("Digite seu CPF:");
 			usuario = entrada.nextLine();
 			System.out.println("Digite sua senha:");
 			senha = entrada.nextLine();		

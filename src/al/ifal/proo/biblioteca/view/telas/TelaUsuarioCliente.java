@@ -40,7 +40,7 @@ public class TelaUsuarioCliente extends Tela  {
 				case 1:
 					return new TelaConsultaItens();
 				case 2:
-					return new TelaConsultaItensLocados(controller.getUsuario());
+					return new TelaExibirItensLocados(controller.getUsuario());
 				case 3:
 					return new TelaAlterarSenha(controller.getUsuario());
 				case 5:

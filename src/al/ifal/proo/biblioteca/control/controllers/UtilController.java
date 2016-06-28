@@ -1,18 +1,17 @@
 package al.ifal.proo.biblioteca.control.controllers;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
 import al.ifal.proo.biblioteca.control.util.Emprestimo;
-import al.ifal.proo.biblioteca.control.util.Item;
 import al.ifal.proo.biblioteca.control.util.Setor;
-import al.ifal.proo.biblioteca.control.util.Usuario;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarSetor;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarEmprestimo;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarSetor;
 import al.ifal.proo.biblioteca.model.conexao.EditarSetor;
+import al.ifal.proo.biblioteca.model.conexao.EmprestimoDeItem;
 public class UtilController {
 
 	public void cadastrarSetor(String localizacao, String descricao) throws ControllerException {
@@ -27,47 +26,6 @@ public class UtilController {
 
 	}
 
-	public ArrayList<Emprestimo> consultarEmprestimo(Usuario user) {
-		ArrayList<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
-
-		return emprestimos;
-	}
-
-	public ArrayList<Emprestimo> consultarEmprestimos(Item item) throws ControllerException {
-		ArrayList<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
-
-		ResultSet consultaDeEmpestimos;
-
-		try {
-			ConsultarEmprestimo consultar = new ConsultarEmprestimo();
-			consultaDeEmpestimos = consultar.consultarEmprestimo(item);
-		} catch (ControllerException e) {
-			throw e;
-		}
-		UserController consultaUsuario = new UserController();
-		ItemController consultaItem = new ItemController();
-		try{
-			while (consultaDeEmpestimos.next()) {
-				Emprestimo emprestimo;
-				if (consultaDeEmpestimos.getDate(5) != null) {
-					emprestimo = new Emprestimo(consultaDeEmpestimos.getInt(1),
-							consultaUsuario.consultarUsuarioPeloID(consultaDeEmpestimos.getInt(2)),
-							consultaItem.consultarItemPeloID(consultaDeEmpestimos.getInt(3)),
-							consultaDeEmpestimos.getDate(4), consultaDeEmpestimos.getDate(5));
-				}else {
-					emprestimo = new Emprestimo(consultaDeEmpestimos.getInt(1),
-						consultaUsuario.consultarUsuarioPeloID(consultaDeEmpestimos.getInt(2)),
-						consultaItem.consultarItemPeloID(consultaDeEmpestimos.getInt(3)),
-						consultaDeEmpestimos.getDate(4));
-				}
-				emprestimos.add(emprestimo);
-	
-			}
-		}catch(SQLException e){
-			throw new ControllerException("Erro ao consultar os Emprestimos");
-		}
-		return emprestimos;
-	}
 
 	public Setor consultarSetorID(int iD) throws ControllerException {
 
@@ -87,7 +45,7 @@ public class UtilController {
 
 	}
         
-        public void editarSetor(String localizacao, String descricao) throws ControllerException {
+    public void editarSetor(String localizacao, String descricao) throws ControllerException {
 
 		if (localizacao.equals("")) {
 			throw new ControllerException("Faltou Digitar a localizacao");
@@ -97,6 +55,40 @@ public class UtilController {
 
 		editar.edicaoSetor(localizacao, descricao);
 
+	}
+
+	public Emprestimo consultarEmprestimos(int idEmprestimo) throws ControllerException {
+		
+		ConsultarEmprestimo consulta = new ConsultarEmprestimo();
+		UserController userC = new UserController();
+		ResultSet rs = consulta.consultarEmprestimo(idEmprestimo);
+		ItemController itemC = new ItemController();
+
+		try {
+			if (rs.next()) {
+				if(rs.getDate(5)==null){
+					return new Emprestimo(rs.getInt(1),userC.consultarUsuarioPeloID(rs.getInt(2)),itemC.consultarItemPeloID(rs.getInt(3)),rs.getDate(4));
+				}else{
+					return new Emprestimo(rs.getInt(1),userC.consultarUsuarioPeloID(rs.getInt(2)),itemC.consultarItemPeloID(rs.getInt(3)),rs.getDate(4),rs.getDate(5));
+				}
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		}
+	
+		return null;
+	}
+
+	public void devolverItem(Emprestimo emprestimo) throws ControllerException {
+		emprestimo.getItem().setDisponivel(true);
+		ItemController itemC = new ItemController();
+		itemC.alterarItem(emprestimo.getItem());
+		EmprestimoDeItem empI = new EmprestimoDeItem();
+		
+		emprestimo.setDataQueDevolveu(new Date(new java.util.Date().getTime()));
+		
+		empI.alterarEmprestimo(emprestimo);
+		
 	}
 
 }

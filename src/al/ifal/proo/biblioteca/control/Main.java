@@ -1,11 +1,7 @@
 package al.ifal.proo.biblioteca.control;
 
-import java.sql.Date;
-
-import al.ifal.proo.biblioteca.control.util.Item;
-import al.ifal.proo.biblioteca.control.util.Livro;
-import al.ifal.proo.biblioteca.control.util.Setor;
-import al.ifal.proo.biblioteca.view.telas.TelaExibirItem;
+import al.ifal.proo.biblioteca.view.telas.Tela;
+import al.ifal.proo.biblioteca.view.telas.TelaLogin;
 
 class Main {
 
@@ -16,11 +12,25 @@ class Main {
 	 * */
 	public static void main(String[] args) {
 
+		Tela tela = null;
+		
+		while(!Controlador.isExit){
+			if(Controlador.isLogged && tela != null){
+				tela = tela.gerarTela();
+			}else if((tela == null) && (Controlador.isLogged)){
+				tela = Controlador.USER.getTela();
+			} else{
+				tela = new TelaLogin().gerarTela();
+			}
+		}
+		
+		
+		
+		
 
-
-		Date data = new Date(new java.util.Date().getTime());
+		//Date data = new Date(new java.util.Date().getTime());
 		//data.getYear();
-		System.out.println(data);
+		//System.out.println(data);
 		
 		
 		

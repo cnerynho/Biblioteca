@@ -20,8 +20,8 @@ public class Controlador {
 		}catch (ControllerException e){
 			return null;
 		}
-		
-		if(user.getSenha()!=senha){
+
+		if(!user.getSenha().equals(senha)){
 			return null;
 		}
 		

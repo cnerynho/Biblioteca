@@ -17,8 +17,7 @@ public class TelaOpcoesItem extends Tela {
 	}
 
 	public Tela gerarTela() {
-		Controlador controller = new Controlador();
-		switch (controller.getUsuario().getTipoUsuario()) {
+		switch (Controlador.USER.getTipoUsuario()) {
 		case UserController.CLIENTE:
 			return menuCliente();
 		case UserController.FUNCIONARIO:

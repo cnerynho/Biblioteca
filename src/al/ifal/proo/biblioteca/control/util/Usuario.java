@@ -68,6 +68,7 @@ public abstract class Usuario implements IUser{
 	public void setTipoCliente(int tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
+	
 
 	@Override
 	public String toString() {
