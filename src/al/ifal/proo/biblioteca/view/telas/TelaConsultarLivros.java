@@ -42,6 +42,51 @@ public class TelaConsultarLivros extends Tela {
 			return null;
 		}
 	}
+	
+	private Tela consultarPorAutor() {
+		
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Digite o Nome do Autor que deseja Consultar");
+		ItemController consulta = new ItemController();
+		String nome = entrada.nextLine();
+		try {
+			ArrayList<Livro> consultados = consulta.consultarLivroPeloAutor(nome);
+			return new TelaExibirLivros(consultados);
+		} catch (ControllerException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	private Tela consultarPorGenero() {
+		
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Digite o Genero do Livro que deseja Consultar");
+		ItemController consulta = new ItemController();
+		String nome = entrada.nextLine();
+		try {
+			ArrayList<Livro> consultados = consulta.consultarLivroPeloGenero(nome);
+			return new TelaExibirLivros(consultados);
+		} catch (ControllerException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	private Tela consultarPorEditora() {
+		
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Digite o Nome da Editora que deseja Consultar");
+		ItemController consulta = new ItemController();
+		String nome = entrada.nextLine();
+		try {
+			ArrayList<Livro> consultados = consulta.consultarLivroPelaEditora(nome);
+			return new TelaExibirLivros(consultados);
+		} catch (ControllerException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 
 	private Tela consultarPorNome() {
 		

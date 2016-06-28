@@ -8,7 +8,7 @@ import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
 import al.ifal.proo.biblioteca.control.util.Cliente;
 import al.ifal.proo.biblioteca.control.util.Funcionario;
 import al.ifal.proo.biblioteca.control.util.Gerente;
-import al.ifal.proo.biblioteca.control.util.Livro;
+import al.ifal.proo.biblioteca.control.util.Item;
 import al.ifal.proo.biblioteca.control.util.Usuario;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarUsuarios;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarUsuarios;
@@ -255,9 +255,10 @@ public class UserController {
 
 	}
 
-	public void emprestarLivro(Usuario usuario, Livro livro) throws ControllerException {
-		EmprestimosDeLivro emprestarLivro = new EmprestimosDeLivro();
-		emprestarLivro.novoEmprestimo(usuario.getID(),livro.getiD());
+	public void emprestarItem(Usuario usuario, Item livro) throws ControllerException {
+		EmprestimoDeItem emprestarLivro = new EmprestimoDeItem();
+		emprestarLivro.novoEmprestimo(usuario,livro);
+		
 		
 	}
 

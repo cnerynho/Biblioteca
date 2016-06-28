@@ -50,20 +50,20 @@ public class TelaOpcoesLivro extends Tela {
 			
 			switch (entrada.nextInt()) {
 			case 1:
-				return new TelaEmprestarLivroAoCliente(consultado);
+				return new TelaEmprestarItemAoCliente(consultado);
 			case 2:
 				consultado.setDisponivel(false);
-				itemControl.alterarLivro(consultado);
+				itemControl.alterarItem(consultado);
 				return null;
 			case 3:
 				consultado.setDisponivel(true);
-				itemControl.alterarLivro(consultado);
+				itemControl.alterarItem(consultado);
 				return null;
 			case 5:
 				return new TelaAlterarInformacoesDoLivro(consultado);
 			case 4:
 				try {
-					control.emprestarLivro(controller.getUsuario(), consultado);
+					control.emprestarItem(controller.getUsuario(), consultado);
 				} catch (ControllerException e) {
 					System.out.println("ERRO AO LOCAR LIVRO");
 					break;
@@ -94,18 +94,18 @@ public class TelaOpcoesLivro extends Tela {
 			
 			switch (entrada.nextInt()) {
 			case 1:
-				return TelaEmprestarLivroAoCliente(consultado);
+				return new TelaEmprestarItemAoCliente(consultado);
 			case 2:
 				consultado.setDisponivel(false);
-				itemControl.alterarLivro(consultado);
+				itemControl.alterarItem(consultado);
 				return null;
 			case 3:
 				consultado.setDisponivel(true);
-				itemControl.alterarLivro(consultado);
+				itemControl.alterarItem(consultado);
 				return null;
 			case 4:
 				try {
-					control.emprestarLivro(controller.getUsuario(), consultado);
+					control.emprestarItem(controller.getUsuario(), consultado);
 				} catch (ControllerException e) {
 					System.out.println("ERRO AO LOCAR LIVRO");
 					break;

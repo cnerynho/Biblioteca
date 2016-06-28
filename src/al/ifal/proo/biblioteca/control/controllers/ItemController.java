@@ -277,13 +277,13 @@ public class ItemController {
 
 	}
 
-	public ArrayList<Item> consultarLivroPelaEditora(String _editora) throws ControllerException {
+	public ArrayList<Livro> consultarLivroPelaEditora(String _editora) throws ControllerException {
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaLivroEditora(_editora);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<LivroVO> livrosVO = new ArrayList<LivroVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<Livro> itens = new ArrayList<Livro>();
 
 		try {
 			while (rs.next()) {
@@ -309,14 +309,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarLivroPeloGenero(String _genero) throws ControllerException {
+	public ArrayList<Livro> consultarLivroPeloGenero(String _genero) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaLivroGenero(_genero);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<LivroVO> livrosVO = new ArrayList<LivroVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<Livro> itens = new ArrayList<Livro>();
 
 		try {
 			while (rs.next()) {
@@ -342,14 +342,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarLivroPeloAutor(String _autor) throws ControllerException {
+	public ArrayList<Livro> consultarLivroPeloAutor(String _autor) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaLivroAutor(_autor);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<LivroVO> livrosVO = new ArrayList<LivroVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<Livro> itens = new ArrayList<Livro>();
 
 		try {
 			while (rs.next()) {
@@ -375,14 +375,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarRevistaPorAno(int _ano) throws ControllerException {
+	public ArrayList<Revista> consultarRevistaPorAno(int _ano) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaRevistaAno(_ano);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<RevistaVO> revistasVO = new ArrayList<RevistaVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<Revista> itens = new ArrayList<Revista>();
 
 		try {
 			while (rs.next()) {
@@ -407,14 +407,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarRevistaPorNumero(int _numero) throws ControllerException {
+	public ArrayList<Revista> consultarRevistaPorNumero(int _numero) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaRevistaAno(_numero);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<RevistaVO> revistasVO = new ArrayList<RevistaVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<Revista> itens = new ArrayList<Revista>();
 
 		try {
 			while (rs.next()) {
@@ -439,14 +439,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarTccPeloIstituto(String _instituto) throws ControllerException {
+	public ArrayList<TrabalhoDeConclusaoDeCurso> consultarTccPeloIstituto(String _instituto) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaTccInstituto(_instituto);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<TccVO> tccsVO = new ArrayList<TccVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<TrabalhoDeConclusaoDeCurso> itens = new ArrayList<TrabalhoDeConclusaoDeCurso>();
 
 		try {
 			while (rs.next()) {
@@ -473,14 +473,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarTccPeloAutor(String _autor) throws ControllerException {
+	public ArrayList<TrabalhoDeConclusaoDeCurso> consultarTccPeloAutor(String _autor) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaTccAutor(_autor);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<TccVO> tccsVO = new ArrayList<TccVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<TrabalhoDeConclusaoDeCurso> itens = new ArrayList<TrabalhoDeConclusaoDeCurso>();
 
 		try {
 			while (rs.next()) {
@@ -507,14 +507,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarTccPeloCurso(String _curso) throws ControllerException {
+	public ArrayList<TrabalhoDeConclusaoDeCurso> consultarTccPeloCurso(String _curso) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaTccCurso(_curso);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<TccVO> tccsVO = new ArrayList<TccVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<TrabalhoDeConclusaoDeCurso> itens = new ArrayList<TrabalhoDeConclusaoDeCurso>();
 
 		try {
 			while (rs.next()) {
@@ -541,14 +541,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarTccPeloOrientador(String _orientador) throws ControllerException {
+	public ArrayList<TrabalhoDeConclusaoDeCurso> consultarTccPeloOrientador(String _orientador) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaTccOrientador(_orientador);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<TccVO> tccsVO = new ArrayList<TccVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<TrabalhoDeConclusaoDeCurso> itens = new ArrayList<TrabalhoDeConclusaoDeCurso>();
 
 		try {
 			while (rs.next()) {
@@ -575,14 +575,14 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<Item> consultarTccPeloCampoDeEstudo(String _campoDeEstudo) throws ControllerException {
+	public ArrayList<TrabalhoDeConclusaoDeCurso> consultarTccPeloCampoDeEstudo(String _campoDeEstudo) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
 		ResultSet rs = consulta.consultaTccCampoDeEstudo(_campoDeEstudo);
 		UtilController consultarSetor = new UtilController();
 		ArrayList<TccVO> tccsVO = new ArrayList<TccVO>();
-		ArrayList<Item> itens = new ArrayList<Item>();
+		ArrayList<TrabalhoDeConclusaoDeCurso> itens = new ArrayList<TrabalhoDeConclusaoDeCurso>();
 
 		try {
 			while (rs.next()) {
