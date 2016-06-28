@@ -12,11 +12,11 @@ import al.ifal.proo.biblioteca.control.util.Setor;
 import al.ifal.proo.biblioteca.control.util.TrabalhoDeConclusaoDeCurso;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarItens;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarItens;
+import al.ifal.proo.biblioteca.model.conexao.EditarItens;
 import al.ifal.proo.biblioteca.model.valueObjects.ItemVO;
 import al.ifal.proo.biblioteca.model.valueObjects.LivroVO;
 import al.ifal.proo.biblioteca.model.valueObjects.RevistaVO;
 import al.ifal.proo.biblioteca.model.valueObjects.TccVO;
-import al.ifal.proo.biblioteca.model.conexao.EditarItens;
 
 public class ItemController {
 
@@ -219,6 +219,30 @@ public class ItemController {
 		}
 	}
 
+	public Livro consultarLivroPeloID(int _iD) throws ControllerException {
+		ConsultarItens consulta = new ConsultarItens();
+		ResultSet rs = consulta.consultaItemID(_iD);
+		UtilController consultarSetor = new UtilController();
+
+		try {
+			rs.next();
+			ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), consultarSetor.consultarSetorID(rs.getInt(3)),
+					rs.getBoolean(4), rs.getInt(5));
+			if (item.getTipoItem() == LIVRO) {
+				rs = consulta.consultaLivroID(item.getiD());
+				return new Livro(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getString(2),
+						rs.getInt(3), rs.getString(5), rs.getString(4));
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		} catch (ControllerException e) {
+			throw e;
+		}
+
+	}
+
 	public ArrayList<Livro> consultarLivroPeloNome(String _nome) throws ControllerException {
 		ConsultarItens consulta = new ConsultarItens();
 		ResultSet rs = consulta.consultaItemNome(_nome);
@@ -251,30 +275,6 @@ public class ItemController {
 		} catch (Exception e) {
 			throw new ControllerException("Erro ao fazer a consulta!");
 		}
-	}
-
-	public Livro consultarLivroPeloID(int _iD) throws ControllerException {
-		ConsultarItens consulta = new ConsultarItens();
-		ResultSet rs = consulta.consultaItemID(_iD);
-		UtilController consultarSetor = new UtilController();
-
-		try {
-			rs.next();
-			ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), consultarSetor.consultarSetorID(rs.getInt(3)),
-					rs.getBoolean(4), rs.getInt(5));
-			if (item.getTipoItem() == LIVRO) {
-				rs = consulta.consultaLivroID(item.getiD());
-				return new Livro(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getString(2),
-						rs.getInt(3), rs.getString(5), rs.getString(4));
-			} else {
-				return null;
-			}
-		} catch (SQLException e) {
-			throw new ControllerException("Erro ao fazer a Consulta");
-		} catch (ControllerException e) {
-			throw e;
-		}
-
 	}
 
 	public ArrayList<Livro> consultarLivroPelaEditora(String _editora) throws ControllerException {
@@ -375,6 +375,64 @@ public class ItemController {
 		}
 	}
 
+	public Revista consultarRevistaPeloID(int _iD) throws ControllerException {
+		ConsultarItens consulta = new ConsultarItens();
+		ResultSet rs = consulta.consultaItemID(_iD);
+		UtilController consultarSetor = new UtilController();
+
+		try {
+			rs.next();
+			ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), consultarSetor.consultarSetorID(rs.getInt(3)),
+					rs.getBoolean(4), rs.getInt(5));
+			if (item.getTipoItem() == REVISTA) {
+				rs = consulta.consultaRevistaID(item.getiD());
+				return new Revista(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getInt(2),
+						rs.getInt(3));
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		} catch (ControllerException e) {
+			throw e;
+		}
+
+	}
+
+	public ArrayList<Revista> consultarRevistaPeloNome(String _nome) throws ControllerException {
+		ConsultarItens consulta = new ConsultarItens();
+		ResultSet rs = consulta.consultaItemNome(_nome);
+		UtilController consultarSetor = new UtilController();
+		ArrayList<ItemVO> itensVO = new ArrayList<ItemVO>();
+		ArrayList<Revista> itens = new ArrayList<Revista>();
+
+		try {
+			while (rs.next()) {
+				ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), consultarSetor.consultarSetorID(rs.getInt(3)),
+						rs.getBoolean(4), rs.getInt(5));
+				if (item.getTipoItem() == REVISTA) {
+					itensVO.add(item);
+				}
+
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		} catch (ControllerException e) {
+			throw e;
+		}
+		try {
+			for (ItemVO i : itensVO) {
+				rs = consulta.consultaLivroID(i.getiD());
+				rs.next();
+				itens.add(new Revista(i.getiD(), i.getNome(), i.getSetor(), i.isDisponivel(), rs.getInt(2),
+						rs.getInt(3)));
+			}
+			return itens;
+		} catch (Exception e) {
+			throw new ControllerException("Erro ao fazer a consulta!");
+		}
+	}
+
 	public ArrayList<Revista> consultarRevistaPorAno(int _ano) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
@@ -439,7 +497,65 @@ public class ItemController {
 		}
 	}
 
-	public ArrayList<TrabalhoDeConclusaoDeCurso> consultarTccPeloIstituto(String _instituto) throws ControllerException {
+	public TrabalhoDeConclusaoDeCurso consultarTccPeloID(int _iD) throws ControllerException {
+		ConsultarItens consulta = new ConsultarItens();
+		ResultSet rs = consulta.consultaItemID(_iD);
+		UtilController consultarSetor = new UtilController();
+
+		try {
+			rs.next();
+			ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), consultarSetor.consultarSetorID(rs.getInt(3)),
+					rs.getBoolean(4), rs.getInt(5));
+			if (item.getTipoItem() == TCC) {
+				rs = consulta.consultaRevistaID(item.getiD());
+				return new TrabalhoDeConclusaoDeCurso(item.getiD(), item.getNome(), item.getSetor(), item.isDisponivel(), rs.getString(2),
+						rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6));
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		} catch (ControllerException e) {
+			throw e;
+		}
+
+	}
+
+	public ArrayList<TrabalhoDeConclusaoDeCurso> consultarTccPeloNome(String _nome) throws ControllerException {
+		ConsultarItens consulta = new ConsultarItens();
+		ResultSet rs = consulta.consultaItemNome(_nome);
+		UtilController consultarSetor = new UtilController();
+		ArrayList<ItemVO> itensVO = new ArrayList<ItemVO>();
+		ArrayList<TrabalhoDeConclusaoDeCurso> itens = new ArrayList<TrabalhoDeConclusaoDeCurso>();
+
+		try {
+			while (rs.next()) {
+				ItemVO item = new ItemVO(rs.getInt(1), rs.getString(2), consultarSetor.consultarSetorID(rs.getInt(3)),
+						rs.getBoolean(4), rs.getInt(5));
+				if (item.getTipoItem() == TCC) {
+					itensVO.add(item);
+				}
+
+			}
+		} catch (SQLException e) {
+			throw new ControllerException("Erro ao fazer a Consulta");
+		} catch (ControllerException e) {
+			throw e;
+		}
+		try {
+			for (ItemVO i : itensVO) {
+				rs = consulta.consultaLivroID(i.getiD());
+				rs.next();
+				itens.add(new TrabalhoDeConclusaoDeCurso(i.getiD(), i.getNome(), i.getSetor(), i.isDisponivel(), rs.getString(2),
+						rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6)));
+			}
+			return itens;
+		} catch (Exception e) {
+			throw new ControllerException("Erro ao fazer a consulta!");
+		}
+	}
+
+	public ArrayList<TrabalhoDeConclusaoDeCurso> consultarTccPeloInstituto(String _instituto) throws ControllerException {
 
 		ConsultarItens consulta = new ConsultarItens();
 		UtilController consultarsetor = new UtilController();
@@ -609,58 +725,197 @@ public class ItemController {
 		}
 	}
 
-	public void editarLivro(String nome, Setor setor, String editora, int edicao, String autor, String genero)
-			throws ControllerException {
+	public void removerItem(Item item) throws ControllerException{
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.removerItem(item);
+	}
+	
+	public void alterarItem(Item item) throws ControllerException{
 
-		if (nome.equals("")) {
-			throw new ControllerException("Nome do Livro est� em branco");
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarItem(item);
+	}
+	
+	public void alterarNomeDoItem(Item livro, String novoNome) throws ControllerException {
+
+		if(novoNome.equals("")){
+			throw new ControllerException("Nome Vazio");
 		}
-
-		EditarItens editar = new EditarItens();
-
-		try {
-			editar.editarLivro(nome, setor, editora, edicao, genero, autor);
-
-		} catch (ControllerException e) {
-			throw new ControllerException("Ocorreu algum problema, tente novamente");
-		}
-
+		
+		livro.setNome(novoNome);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarItem(livro);
+		
 	}
 
-	public void editarRevista(String nome, Setor setor, int ano, int numero) throws ControllerException {
+	public void alterarSetorDoItem(Item item, Setor novoSetor) throws ControllerException {
 
-		if (nome.equals("")) {
-			throw new ControllerException("Nome da revista est� em branco");
-		}
-
-		EditarItens editar = new EditarItens();
-
-		try {
-			editar.editarRevista(nome, setor, ano, numero);
-			;
-
-		} catch (ControllerException e) {
-			throw new ControllerException("Ocorreu algum problema, tente novamente");
-		}
-
+		
+		item.setSetor(novoSetor);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarItem(item);
+		
 	}
 
-	public void editarTCC(String nome, Setor setor, String autor, String institutoSuperior, String curso,
-			String orientador, String campoDeEstudo) throws ControllerException {
+	public void alterarAutorDoLivro(Livro livro, String novoAutor) throws ControllerException {
 
-		if (nome.equals("")) {
-			throw new ControllerException("Nome do trabalho est� em branco");
+		if(novoAutor.equals("")){
+			throw new ControllerException("Nome Vazio");
 		}
+		
+		livro.setAutor(novoAutor);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarLivro(livro);
+		
+	}
 
-		EditarItens editar = new EditarItens();
+	public void alterarEditoraDoLivro(Livro livro, String novaEditora) throws ControllerException {
 
-		try {
-			editar.editarTCC(nome, setor, autor, institutoSuperior, curso, orientador, campoDeEstudo);
-
-		} catch (ControllerException e) {
-			throw new ControllerException("Ocorreu algum problema, tente novamente");
+		if(novaEditora.equals("")){
+			throw new ControllerException("Nome Vazio");
 		}
+		
+		livro.setAutor(novaEditora);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarLivro(livro);
+		
+	}
+	
+	public void alterarEdicaoDoLivro(Livro livro, int novaEdicao) throws ControllerException {
 
+		if(novaEdicao<1){
+			throw new ControllerException("Valor Invalido");
+		}
+		
+		livro.setEdicao(novaEdicao);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarLivro(livro);
+		
+	}
+
+	public void alterarGeneroDoLivro(Livro livro, String novoGenero) throws ControllerException {
+
+		if(novoGenero.equals("")){
+			throw new ControllerException("Valor Invalido");
+		}
+		
+		livro.setGenero(novoGenero);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarLivro(livro);
+		
+	}
+
+	public void alterarAnoDaRevista(Revista revista, int novoAno) throws ControllerException {
+
+		if(novoAno<1){
+			throw new ControllerException("Valor Invalido");
+		}
+		
+		revista.setAno(novoAno);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarRevista(revista);
+		
+	}
+
+	public void alterarNumeroDaRevista(Revista revista, int novoNumero) throws ControllerException {
+
+		if(novoNumero<1){
+			throw new ControllerException("Valor Invalido");
+		}
+		
+		revista.setNumero(novoNumero);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarRevista(revista);
+		
+	}
+
+	public void alterarAutorDoTCC(TrabalhoDeConclusaoDeCurso tcc, String novoAutor) throws ControllerException {
+
+		if(novoAutor.equals("")){
+			throw new ControllerException("Nome Vazio");
+		}
+		
+		tcc.setAutor(novoAutor);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarTCC(tcc);
+		
+	}
+
+	public void alterarInstitutoDoTCC(TrabalhoDeConclusaoDeCurso tcc, String novoInstituto) throws ControllerException {
+
+		if(novoInstituto.equals("")){
+			throw new ControllerException("Nome Vazio");
+		}
+		
+		tcc.setInstitutoSuperior(novoInstituto);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarTCC(tcc);
+		
+	}
+
+	public void alterarCursoDoTCC(TrabalhoDeConclusaoDeCurso tcc, String novoCurso) throws ControllerException {
+
+		if(novoCurso.equals("")){
+			throw new ControllerException("Nome Vazio");
+		}
+		
+		tcc.setCurso(novoCurso);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarTCC(tcc);
+		
+	}	
+
+	public void alterarOrientadorDoTCC(TrabalhoDeConclusaoDeCurso tcc, String novoOrientador) throws ControllerException {
+
+		if(novoOrientador.equals("")){
+			throw new ControllerException("Nome Vazio");
+		}
+		
+		tcc.setOrientador(novoOrientador);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarTCC(tcc);
+		
+	}	
+
+	public void alterarCampoDeEstudoDoTCC(TrabalhoDeConclusaoDeCurso tcc, String novoCampoDeEstudo) throws ControllerException {
+
+		if(novoCampoDeEstudo.equals("")){
+			throw new ControllerException("Nome Vazio");
+		}
+		
+		tcc.setAreaDeInteresse(novoCampoDeEstudo);
+		
+		EditarItens alterar = new EditarItens();
+		
+		alterar.editarTCC(tcc);
+		
 	}
 
 }

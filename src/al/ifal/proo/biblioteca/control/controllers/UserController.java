@@ -13,6 +13,7 @@ import al.ifal.proo.biblioteca.control.util.Usuario;
 import al.ifal.proo.biblioteca.model.conexao.CadastrarUsuarios;
 import al.ifal.proo.biblioteca.model.conexao.ConsultarUsuarios;
 import al.ifal.proo.biblioteca.model.conexao.EditarUsuarios;
+import al.ifal.proo.biblioteca.model.conexao.EmprestimoDeItem;
 
 public class UserController {
 
@@ -255,9 +256,13 @@ public class UserController {
 
 	}
 
-	public void emprestarItem(Usuario usuario, Item livro) throws ControllerException {
-		EmprestimoDeItem emprestarLivro = new EmprestimoDeItem();
-		emprestarLivro.novoEmprestimo(usuario,livro);
+	public void emprestarItem(Usuario usuario, Item item) throws ControllerException {
+		EmprestimoDeItem emprestarItem = new EmprestimoDeItem();
+		emprestarItem.novoEmprestimo(usuario,item);
+		item.setDisponivel(false);
+		ItemController itemC = new ItemController();
+		
+		itemC.alterarItem(item);
 		
 		
 	}

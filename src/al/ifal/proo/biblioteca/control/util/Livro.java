@@ -1,5 +1,7 @@
 package al.ifal.proo.biblioteca.control.util;
 
+import al.ifal.proo.biblioteca.control.controllers.ItemController;
+
 public class Livro extends Item {
 
 	private String editora;
@@ -9,11 +11,12 @@ public class Livro extends Item {
 
 	public Livro(int iD, String nome, Setor setor, boolean isDisponivel, String editora, int edicao, String autor,
 			String genero) {
-		super(iD, nome, setor, isDisponivel);
+		super(iD, nome, setor, isDisponivel,ItemController.LIVRO);
 		this.editora = editora;
 		this.edicao = edicao;
 		this.autor = autor;
 		this.genero = genero;
+		
 	}
 
 	public String getEditora() {

@@ -1,12 +1,14 @@
 package al.ifal.proo.biblioteca.control.util;
 
+import al.ifal.proo.biblioteca.control.controllers.ItemController;
+
 public class Revista extends Item {
 
 	private int ano;
 	private int numero;
 	
 	public Revista(int iD, String nome, Setor setor, boolean isDisponivel, int ano, int numero) {
-		super(iD, nome, setor, isDisponivel);
+		super(iD, nome, setor, isDisponivel,ItemController.REVISTA);
 		this.ano = ano;
 		this.numero = numero;
 	}

@@ -5,6 +5,7 @@ import java.sql.Date;
 import al.ifal.proo.biblioteca.control.util.Item;
 import al.ifal.proo.biblioteca.control.util.Livro;
 import al.ifal.proo.biblioteca.control.util.Setor;
+import al.ifal.proo.biblioteca.view.telas.TelaExibirItem;
 
 class Main {
 
@@ -17,15 +18,20 @@ class Main {
 
 
 
-		Date data = new Date(2016-1900,5,26);
-		data.getYear();
+		Date data = new Date(new java.util.Date().getTime());
+		//data.getYear();
+		System.out.println(data);
+		
+		
+		
+		
 		
 		//Cliente a = new Cliente(1, "asdas", "12f2", "asdasd", "asdasd");
 		//System.out.println(a);
-		Setor setor = new Setor(22, "asd", "");
+		//Setor setor = new Setor(22, "asd", "");
 		
-		Item a = new Livro(1,"livro 1" , setor, true, "Saraiva", 1, "carlos Nery", "ficcao cientifica");
-		System.out.println(a);
+		//Item a = new Livro(1,"livro 1" , setor, false, "Saraiva", 1, "carlos Nery", "ficcao cientifica");
+		//new TelaExibirItem(a).gerarTela();
 		
 		/*
 		Setor setor = new Setor(22, "asd", "");

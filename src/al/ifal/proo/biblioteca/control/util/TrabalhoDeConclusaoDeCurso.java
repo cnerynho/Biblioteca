@@ -1,5 +1,7 @@
 package al.ifal.proo.biblioteca.control.util;
 
+import al.ifal.proo.biblioteca.control.controllers.ItemController;
+
 public class TrabalhoDeConclusaoDeCurso extends Item {
 
 	private String autor;
@@ -10,7 +12,7 @@ public class TrabalhoDeConclusaoDeCurso extends Item {
 
 	public TrabalhoDeConclusaoDeCurso(int iD, String nome, Setor setor, boolean isDisponivel, String autor,
 			String institutoSuperior, String curso, String orientador, String campoDeEstudo) {
-		super(iD, nome, setor, isDisponivel);
+		super(iD, nome, setor, isDisponivel,ItemController.TCC);
 		this.autor = autor;
 		this.institutoSuperior = institutoSuperior;
 		this.curso = curso;

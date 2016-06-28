@@ -6,14 +6,14 @@ import al.ifal.proo.biblioteca.control.Controlador;
 import al.ifal.proo.biblioteca.control.controllers.ItemController;
 import al.ifal.proo.biblioteca.control.controllers.UserController;
 import al.ifal.proo.biblioteca.control.exceptions.ControllerException;
-import al.ifal.proo.biblioteca.control.util.Livro;
+import al.ifal.proo.biblioteca.control.util.Item;
 
-public class TelaOpcoesLivro extends Tela {
+public class TelaOpcoesItem extends Tela {
 
-	private Livro consultado;
+	private Item item;
 
-	public TelaOpcoesLivro(Livro consultado) {
-		this.consultado = consultado;
+	public TelaOpcoesItem(Item livro) {
+		this.item = livro;
 	}
 
 	public Tela gerarTela() {
@@ -39,33 +39,65 @@ public class TelaOpcoesLivro extends Tela {
 		while (true) {
 			System.out.println(
 							"DETALHES: \n" 
-							+ consultado + "\n" 
-							+ "OPCOES" 
+							+ item + "\n" 
+							+ "OPCOES\n" 
 							+ "1 - EMPRESTAR A UM CLIENTE\n"
 							+ "2 - TORNAR INDISPONIVEL\n"
 							+ "3 - TORNAR DISPONIVEL\n"
 							+ "4 - PEGAR EMPRESTADO\n"
-							+ "5 - ALTERAR INFORMACOES DO LIVRO\n" 
+							+ "5 - ALTERAR INFORMACOES DO ITEM\n" 
 							+ "6 - VOLTAR AO MENU PRINCIPAL\n");
 			
 			switch (entrada.nextInt()) {
 			case 1:
-				return new TelaEmprestarItemAoCliente(consultado);
+				return new TelaEmprestarItemAoCliente(item);
 			case 2:
-				consultado.setDisponivel(false);
-				itemControl.alterarItem(consultado);
+				item.setDisponivel(false);
+				try{
+					itemControl.alterarItem(item);
+				} catch (ControllerException e1) {
+					System.out.println("Ocorreu um erro!\n");
+				}
 				return null;
 			case 3:
-				consultado.setDisponivel(true);
-				itemControl.alterarItem(consultado);
+				item.setDisponivel(true);
+				try {
+				itemControl.alterarItem(item);
+				} catch (ControllerException e1) {
+					System.out.println("Ocorreu um erro!\n");
+				}
 				return null;
 			case 5:
-				return new TelaAlterarInformacoesDoLivro(consultado);
+				switch(item.getTipo()){
+				case ItemController.LIVRO:
+					try {
+						return new TelaAlterarInformacoesDoLivro(itemControl.consultarLivroPeloID(item.getiD()));
+					} catch (ControllerException e1) {
+						System.out.println("Ocorreu um erro!\n");
+						return null;
+					}
+				case ItemController.REVISTA:
+					try {
+						return new TelaAlterarInformacoesDaRevista(itemControl.consultarRevistaPeloID(item.getiD()));
+					} catch (ControllerException e1) {
+						System.out.println("Ocorreu um erro!\n");
+						return null;
+					}
+				case ItemController.TCC:
+					try {
+						return new TelaAlterarInformacoesDoTCC(itemControl.consultarTccPeloID(item.getiD()));
+					} catch (ControllerException e1) {
+						System.out.println("Ocorreu um erro!\n");
+						return null;
+					}
+			
+				}
+				
 			case 4:
 				try {
-					control.emprestarItem(controller.getUsuario(), consultado);
+					control.emprestarItem(controller.getUsuario(), item);
 				} catch (ControllerException e) {
-					System.out.println("ERRO AO LOCAR LIVRO");
+					System.out.println("ERRO AO LOCAR ITEM\n");
 					break;
 				}
 			case 6:
@@ -84,8 +116,8 @@ public class TelaOpcoesLivro extends Tela {
 		while (true) {
 			System.out.println(
 							"DETALHES: \n" 
-							+ consultado + "\n" 
-							+ "OPCOES" 
+							+ item + "\n" 
+							+ "OPCOES\n" 
 							+ "1 - EMPRESTAR A UM CLIENTE\n"
 							+ "2 - TORNAR INDISPONIVEL\n"
 							+ "3 - TORNAR DISPONIVEL\n"
@@ -94,20 +126,28 @@ public class TelaOpcoesLivro extends Tela {
 			
 			switch (entrada.nextInt()) {
 			case 1:
-				return new TelaEmprestarItemAoCliente(consultado);
+				return new TelaEmprestarItemAoCliente(item);
 			case 2:
-				consultado.setDisponivel(false);
-				itemControl.alterarItem(consultado);
+				item.setDisponivel(false);
+				try {
+					itemControl.alterarItem(item);
+				} catch (ControllerException e1) {
+					System.out.println("Ocorreu um erro!\n");
+				}
 				return null;
 			case 3:
-				consultado.setDisponivel(true);
-				itemControl.alterarItem(consultado);
+				item.setDisponivel(true);
+				try {
+					itemControl.alterarItem(item);
+				} catch (ControllerException e1) {
+					System.out.println("Ocorreu um erro!\n");
+				}
 				return null;
 			case 4:
 				try {
-					control.emprestarItem(controller.getUsuario(), consultado);
+					control.emprestarItem(controller.getUsuario(), item);
 				} catch (ControllerException e) {
-					System.out.println("ERRO AO LOCAR LIVRO");
+					System.out.println("ERRO AO LOCAR ITEM");
 					break;
 				}
 			case 5:
@@ -125,18 +165,18 @@ public class TelaOpcoesLivro extends Tela {
 		while (true) {
 			System.out.println(
 							"DETALHES: \n" 
-							+ consultado 
+							+ item 
 							+ "\n" 
-							+ "OPCOES" 
+							+ "OPCOES\n" 
 							+ "1 - PEGAR EMPRESTADO\n" 
 							+ "2 - VOLTAR AO MENU PRINCIPAL\n");
 			
 			switch (entrada.nextInt()) {
 			case 1:
 				try {
-					control.emprestarLivro(controller.getUsuario(), consultado);
+					control.emprestarItem(controller.getUsuario(), item);
 				} catch (ControllerException e) {
-					System.out.println("ERRO AO LOCAR LIVRO");
+					System.out.println("ERRO AO LOCAR ITEM");
 					break;
 				}
 			case 2:
